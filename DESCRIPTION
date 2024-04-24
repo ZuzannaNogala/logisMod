@@ -1,12 +1,16 @@
 Package: projektROR
-Title: What the Package Does (One Line, Title Case)
+Title: Comparing models based on logistic regression 
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R: c(
+    person("Oktawia", "Hankus", email = "oktawiahankus@gmail.com", role = "cre"),
+    person("Zuzanna", "Nogala", email = "zuzanna02nogala@gmail.com", role = "cre"))
+Description: The system of the summarizing logistic models' statistics based on data provided by user. The user 
+choose which predictors from data will be used in logistic regression and compare with another models with different endogenous varriables. 
+License: use_gpl3_license()
+Imports:
+    ggplot2
+    kableExtra
+    data.table
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1

@@ -1,7 +1,2 @@
-A line I wrote on my local computer 
+The package to comparing models based on logistic regression.
 
-test
-
-komentarz na nowej galezi
-
-chyba wszystko działa 
