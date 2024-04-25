@@ -2,7 +2,7 @@ Package: projektROR
 Title: Comparing models based on logistic regression 
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Oktawia", "Hankus", email = "oktawiahankus@gmail.com", role = "cre"),
+    person("Oktawia", "Hankus", email = "oktawiahankus@gmail.com", role = "out"),
     person("Zuzanna", "Nogala", email = "zuzanna02nogala@gmail.com", role = "cre"))
 Description: The system of the summarizing logistic models' statistics based on data provided by user. The user choose which predictors from data will be used in logistic regression and compare with another models with different endogenous varriables. 
 License: use_gpl3_license()
