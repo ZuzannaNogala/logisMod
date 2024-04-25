@@ -6,9 +6,8 @@ Authors@R: c(
     person("Zuzanna", "Nogala", email = "zuzanna02nogala@gmail.com", role = "cre"))
 Description: The system of the summarizing logistic models' statistics based on data provided by user. The user choose which predictors from data will be used in logistic regression and compare with another models with different endogenous varriables. 
 License: use_gpl3_license()
-Imports:
-    ggplot2
-    kableExtra
+Imports: ggplot2,
+    kableExtra,
     data.table
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
