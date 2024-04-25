@@ -7,7 +7,12 @@
 #' @param data numeric, plan matrix for model
 #' @param parameters numeric, beta values
 #' @return numeric, sse of scaled data
-#' @example firstCaseExample.R
+#' @examples
+#' n <- 88
+#' planMatrix <- matrix(rnorm(3*n), nrow = n, ncol = 3)
+#' beta <- c(1, 2, 1)
+#' Y <- planMatrix %*% beta + rnorm(n, sd = 0.01)
+#' firstCase(Y, planMatrix, beta)
 #' @export
 firstCase <- function(observations, data, parameters){
   scaledData <- scale(data)
