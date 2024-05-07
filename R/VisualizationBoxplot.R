@@ -5,7 +5,7 @@
 #' 
 #' @param data data table or data frame, cointains names of variables
 #' @param str_name_Y character, name of dependent variable Y which takes the values 0 and 1
-#' @param str_name_Y character, name of independent variable/predictor X
+#' @param str_name_X character, name of independent variable/predictor X
 #' 
 #' @import ggplot2
 #' @examples
