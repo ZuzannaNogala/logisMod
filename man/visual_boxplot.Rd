@@ -20,5 +20,5 @@ minimum, first quartile Q1, median, third quartile Q3 and maximum
 \examples{
 citrus
 str(citrus)
-visual_boxplot(data =citrus, str_name_Y = "nameBin", str_name_X ="diameter")
+visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X ="diameter")
 }

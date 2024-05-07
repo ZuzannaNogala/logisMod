@@ -11,10 +11,12 @@
 #' @examples
 #' citrus
 #' str(citrus)
-#' visual_boxplot(data =citrus, str_name_Y = "nameBin", str_name_X ="diameter")
+#' visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X ="diameter")
 #' @export
 visual_boxplot <- function(data, str_name_Y, str_name_X){
-  ggplot(data, aes(x = as.character(get(str_name_Y)), y = get(str_name_X), fill = as.character(get(str_name_Y)))) +
+  ggplot(data, aes(x = as.character(get(str_name_Y)), 
+                   y = get(str_name_X), 
+                   fill = as.character(get(str_name_Y)))) +
     geom_boxplot() +
     xlab(str_name_Y) +
     ylab(str_name_X) +
