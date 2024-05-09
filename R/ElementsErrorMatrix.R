@@ -12,7 +12,7 @@
 #' @return integer, sum of TP, FP, TN and FN
 #' @examples
 #' mdl <- glm(nameBin ~ diameter + green + blue, data = citrus, family = binomial("logit"))
-#' p <- 0. 6
+#' p <- 0.6
 #' 
 #' resp_prediction_for_model <- resp_prediction_for_model(mdl)
 #' 
