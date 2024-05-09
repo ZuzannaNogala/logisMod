@@ -16,10 +16,10 @@
 #' 
 #' resp_prediction_for_model <- resp_prediction_for_model(mdl)
 #' 
-#' True_Negative(thres_prob = p, prediction_mdl, citrus$nameBin)
-#' True_Positive(thres_prob = p, prediction_mdl, citrus$nameBin)
-#' False_Negative(thres_prob = p, prediction_mdl, citrus$nameBin)
-#' False_Positive(thres_prob = p, prediction_mdl, citrus$nameBin)
+#' True_Negative(thres_prob = p, resp_prediction_for_model, citrus$nameBin)
+#' True_Positive(thres_prob = p, resp_prediction_for_model, citrus$nameBin)
+#' False_Negative(thres_prob = p, resp_prediction_for_model, citrus$nameBin)
+#' False_Positive(thres_prob = p, resp_prediction_for_model, citrus$nameBin)
 #' @export
 True_Positive <- function(thres_prob, resp_pred_vec, Y_vec){
   T_from_data <- which(Y_vec == 1)
