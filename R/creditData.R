@@ -16,7 +16,7 @@
 #'   \item{name_education_type}{Education level}
 #'   \item{name_family_status}{Marital status}
 #'   \item{name_housing_type}{Way of living}
-#'   \item{days_employe}{Number of days of emplyment, negative - person unemployed}
+#'   \item{days_employed}{Number of days of emplyment, negative - person unemployed}
 #'   \item{flag_mobil}{Is there a mobile phone}
 #'   \item{flag_work_phone}{Is there a work phone}
 #'   \item{flag_phone}{Is there a phone}

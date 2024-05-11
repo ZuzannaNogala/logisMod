@@ -1,3 +1,15 @@
+#' All combinations of a vector
+#' 
+#' Function gives us list of all possible combinations of a given vector
+#' 
+#' @param vec vector of values
+#' @return list of combinations
+#' 
+#' @importFrom utils combn
+#' 
+#' @examples
+#' .getAllCombination(c(1, 2, 3))
+#' @keywords internal
 .getAllCombination <- function(vec){
   numRep <- length(vec)
   
@@ -14,6 +26,25 @@
   unlist(result, F)
 }
 
+#' Formula for making model
+#' 
+#' Function gives us formula to create a model. Created from name of dependent
+#' variable and list of names of possible predictors.
+#' 
+#' @param strNameY character, name of dependent variable Y which takes the values 0 and 1
+#' @param possPred character vector, vector of possible predictors' names, 
+#' must be columns of data table from which model is creating
+#' @return formula for model
+#' 
+#' @importFrom stats as.formula
+#' 
+#' @examples
+#' .getModelFormula("nameBin", c("red", "blue"))
+#' 
+#' # working as well
+#' .getModelFormula("nameBin", "red")
+#' 
+#' @keywords internal
 .getModelFormula <- function(strNameY, pred){
   
   if(length(pred) == 0){
@@ -22,10 +53,33 @@
     formulaTXT <- paste0(strNameY, "~", paste(pred, collapse = "+"))
   }
   
-  as.formula(formulaTXT)
+  stats::as.formula(formulaTXT)
 }
 
-countInfCrit <- function(data = citrus, strNameY = "nameBin", possPred){
+#' AIC/BIC for all possible models 
+#' 
+#' This function let us count values of AIC and BIC for models created by
+#' formulas based on all possible predictors' combinations.
+#' 
+#' @param data data.frame or data.table, from which data for model is taken,
+#' by default \code{citrus} data.table
+#' @param strNameY character, name of dependent variable Y which takes the values 0 and 1
+#' @param possPred character vector, vector of possible predictors' names, 
+#' must be columns of \code{data}
+#' @return data.table containing all possible formulas and values of AIC/BIC 
+#' for models based on them
+#' 
+#' @import data.table
+#' @importFrom stats glm
+#' @importFrom stats AIC
+#' @importFrom stats BIC
+#' 
+#' @examples
+#' possiblePred <- colnames(citrus)[2:6]
+#' countInfCrit(possiblePred)
+#' 
+#' @export
+countInfCrit <- function(data = .data$citrus, strNameY = "nameBin", possPred){
   possPredComb <- .getAllCombination(possPred)
   
   result <- lapply(possPredComb, function(item){
@@ -41,5 +95,3 @@ countInfCrit <- function(data = citrus, strNameY = "nameBin", possPred){
   
   data.table::rbindlist(result)
 }
-
-
