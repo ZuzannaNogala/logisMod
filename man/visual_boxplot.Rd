@@ -4,7 +4,12 @@
 \alias{visual_boxplot}
 \title{Box plot visualization for logistic model}
 \usage{
-visual_boxplot(data, str_name_Y, str_name_X)
+visual_boxplot(
+  data,
+  str_name_Y,
+  str_name_X,
+  plot_title = paste("Box plot of", str_name_X, "versus", str_name_Y)
+)
 }
 \arguments{
 \item{data}{data table or data frame, cointains names of variables}
@@ -12,13 +17,20 @@ visual_boxplot(data, str_name_Y, str_name_X)
 \item{str_name_Y}{character, name of dependent variable Y which takes the values 0 and 1}
 
 \item{str_name_X}{character, name of independent variable/predictor X}
+
+\item{plot_title}{character, optional, title of box plot}
 }
 \description{
 function displays distribition data based on its five statistic:
 minimum, first quartile Q1, median, third quartile Q3 and maximum
 }
+\details{
+package patchwork is available to simplify displaying graphs
+}
 \examples{
 citrus
 str(citrus)
-visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X ="diameter")
+p1 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X ="diameter")
+p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X ="green")
+p1 + p2
 }
