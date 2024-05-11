@@ -7,6 +7,7 @@
 #' @return numeric vetor
 #' @import data.table
 #' @importFrom stats glm
+#' @importFrom stats predict.glm
 #' @examples
 #' mdl <- glm(nameBin ~ diameter + green + blue, data = citrus, family = binomial("logit"))
 #' summary(mdl)
