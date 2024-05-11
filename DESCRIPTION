@@ -7,7 +7,8 @@ Authors@R: c(
 Description: The system of the summarizing logistic models' statistics based on data provided by user. The user choose which predictors from data will be used in logistic regression and compare with another models with different endogenous varriables. 
 Imports: ggplot2,
     kableExtra,
-    data.table
+    data.table,
+    patchwork
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
