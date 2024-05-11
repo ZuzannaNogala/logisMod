@@ -7,8 +7,6 @@
 #' 
 #' @importFrom utils combn
 #' 
-#' @examples
-#' .getAllCombination(c(1, 2, 3))
 #' @keywords internal
 .getAllCombination <- function(vec){
   numRep <- length(vec)
@@ -37,12 +35,6 @@
 #' @return formula for model
 #' 
 #' @importFrom stats as.formula
-#' 
-#' @examples
-#' .getModelFormula("nameBin", c("red", "blue"))
-#' 
-#' # working as well
-#' .getModelFormula("nameBin", "red")
 #' 
 #' @keywords internal
 .getModelFormula <- function(strNameY, pred){
@@ -76,10 +68,9 @@
 #' 
 #' @examples
 #' possiblePred <- colnames(citrus)[2:6]
-#' countInfCrit(possiblePred)
-#' 
+#' countInfCrit(citrus, "nameBin", possiblePred)
 #' @export
-countInfCrit <- function(data = .data$citrus, strNameY = "nameBin", possPred){
+countInfCrit <- function(data, strNameY, possPred){
   possPredComb <- .getAllCombination(possPred)
   
   result <- lapply(possPredComb, function(item){
@@ -95,3 +86,4 @@ countInfCrit <- function(data = .data$citrus, strNameY = "nameBin", possPred){
   
   data.table::rbindlist(result)
 }
+

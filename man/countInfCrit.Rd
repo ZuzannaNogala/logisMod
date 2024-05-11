@@ -4,7 +4,7 @@
 \alias{countInfCrit}
 \title{AIC/BIC for all possible models}
 \usage{
-countInfCrit(data = .data$citrus, strNameY = "nameBin", possPred)
+countInfCrit(data, strNameY, possPred)
 }
 \arguments{
 \item{data}{data.frame or data.table, from which data for model is taken,
@@ -25,6 +25,5 @@ formulas based on all possible predictors' combinations.
 }
 \examples{
 possiblePred <- colnames(citrus)[2:6]
-countInfCrit(possiblePred)
-
+countInfCrit(citrus, "nameBin", possiblePred)
 }

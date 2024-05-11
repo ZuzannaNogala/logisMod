@@ -15,7 +15,4 @@ list of combinations
 \description{
 Function gives us list of all possible combinations of a given vector
 }
-\examples{
-.getAllCombination(c(1, 2, 3))
-}
 \keyword{internal}

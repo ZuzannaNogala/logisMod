@@ -19,11 +19,4 @@ formula for model
 Function gives us formula to create a model. Created from name of dependent
 variable and list of names of possible predictors.
 }
-\examples{
-.getModelFormula("nameBin", c("red", "blue"))
-
-# working as well
-.getModelFormula("nameBin", "red")
-
-}
 \keyword{internal}
