@@ -6,10 +6,11 @@
 #' @param model object glm, logistic model
 #' @return numeric vetor
 #' @import data.table
+#' @importFrom stats glm
 #' @examples
 #' mdl <- glm(nameBin ~ diameter + green + blue, data = citrus, family = binomial("logit"))
 #' summary(mdl)
-#' resp_prediction_for_model(mdl)
+#' head(resp_prediction_for_model(mdl))
 #' @export
 resp_prediction_for_model <- function(model){
   data <- as.data.table(model$data)
