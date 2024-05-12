@@ -7,8 +7,7 @@
 countInfCrit(data, strNameY, possPred)
 }
 \arguments{
-\item{data}{data.frame or data.table, from which data for model is taken,
-by default \code{citrus} data.table}
+\item{data}{data.frame or data.table, from which data for model is taken}
 
 \item{strNameY}{character, name of dependent variable Y which takes the values 0 and 1}
 
