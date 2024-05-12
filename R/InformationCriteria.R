@@ -53,8 +53,7 @@
 #' This function let us count values of AIC and BIC for models created by
 #' formulas based on all possible predictors' combinations.
 #' 
-#' @param data data.frame or data.table, from which data for model is taken,
-#' by default \code{citrus} data.table
+#' @param data data.frame or data.table, from which data for model is taken
 #' @param strNameY character, name of dependent variable Y which takes the values 0 and 1
 #' @param possPred character vector, vector of possible predictors' names, 
 #' must be columns of \code{data}
