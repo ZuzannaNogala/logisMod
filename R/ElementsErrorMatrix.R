@@ -10,6 +10,7 @@
 #' @param Y_vec dependent variable Y which takes the values 0 and 1
 #' @name ElementsOfErrorMatrix
 #' @importFrom stats glm
+#' 
 #' @return integer, sum of TP, FP, TN and FN
 #' @examples
 #' mdl <- glm(nameBin ~ diameter + green + blue, data = citrus, family = binomial("logit"))
