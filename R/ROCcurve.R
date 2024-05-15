@@ -64,7 +64,7 @@
 #' drawROC(seq(0, 1, by = 0.05), model, "nameBin")
 #' @export
 drawROC <- function(threshold_sequance, model, strNameY){
-  roc_points_list <- .findPointsOnTheROC(seq(0, 1, by = 0.05), model, "nameBin")
+  roc_points_list <- .findPointsOnTheROC(seq(0, 1, by = 0.05), model, strNameY)
   roc_points_dt <- transpose(as.data.table(roc_points_list))
   names(roc_points_dt) <- c("FPR", "TPR")
   
