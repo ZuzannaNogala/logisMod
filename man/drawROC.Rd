@@ -4,20 +4,20 @@
 \alias{drawROC}
 \title{The ROC curve visualization}
 \usage{
-drawROC(threshold_sequance, roc_points_list, model, strNameY)
+drawROC(threshold_sequance, model, strNameY)
 }
 \arguments{
 \item{threshold_sequance}{sequance of numeric values from 0 to 1, thresholds
 of success' probability - if predicted probability of dependent variable is higher than treshold, the
 event is counted as a success}
 
-\item{roc_points_list}{object of function .findpPointsOnTheROC, list of pairs
-represents FPR and TPR for each threshold probability}
-
 \item{model}{object glm, logistic model}
 
 \item{strNameY}{characteristic, name of dependent variable which takes values
 0 and 1}
+
+\item{roc_points_list}{object of function .findpPointsOnTheROC, list of pairs
+represents FPR and TPR for each threshold probability}
 }
 \value{
 plot represents ROC curve
@@ -30,7 +30,5 @@ Rate (FPR) against True Positive Rate (TPR) at each threshold setting.
 }
 \examples{
 model <- glm(nameBin ~ diameter + blue + red, data = citrus, family = binomial("logit"))
-
-roc_points_list <- .findPointsOnTheROC(seq(0, 1, by = 0.05), model, "nameBin")
-drawROC(seq(0, 1, by = 0.05), roc_points_list, model, "nameBin")
+drawROC(seq(0, 1, by = 0.05), model, "nameBin")
 }

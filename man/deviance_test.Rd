@@ -24,7 +24,10 @@ function returns deviance test summary to verify null hypothesis H0: predictors
 from set A is insignificant vs alternative H1: significant predictor exists in set A (full model)
 }
 \examples{
-mdl_full <- glm(nameBin ~ diameter + green + blue + weight , data = citrus, family = binomial("logit"))
-mdl_unfull <- glm(nameBin ~ diameter + weight + green, data = citrus, family = binomial("logit"))
+mdl_full <- glm(nameBin ~ diameter + green + blue + weight , 
+               data = citrus, family = binomial("logit"))
+mdl_unfull <- glm(nameBin ~ diameter + weight + green, 
+                data = citrus, family = binomial("logit"))
+
 deviance_test(model_H0 = mdl_unfull, model_H1 = mdl_full, alpha = 0.1)
 }

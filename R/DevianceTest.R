@@ -8,11 +8,19 @@
 #' @param model_H1 glm object, logistic model from alternative hypothesis (models with more 
 #' predictors are supported)
 #' @param alpha numeric,significance level of test
+#' 
+#' @importFrom stats pchisq
+#' @importFrom stats qchisq
+#' 
 #' @return list of names of testing predictors, value of deviance statistic, 
 #' degrees of freedom, critical value of deviance statistic and p value. 
+#' 
 #' @examples
-#'mdl_full <- glm(nameBin ~ diameter + green + blue + weight , data = citrus, family = binomial("logit"))
-#'mdl_unfull <- glm(nameBin ~ diameter + weight + green, data = citrus, family = binomial("logit"))
+#'mdl_full <- glm(nameBin ~ diameter + green + blue + weight , 
+#'                data = citrus, family = binomial("logit"))
+#'mdl_unfull <- glm(nameBin ~ diameter + weight + green, 
+#'                 data = citrus, family = binomial("logit"))
+#'
 #'deviance_test(model_H0 = mdl_unfull, model_H1 = mdl_full, alpha = 0.1)
 #' @export
 deviance_test <- function(model_H0, model_H1, alpha = 0.05){
