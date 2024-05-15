@@ -16,10 +16,10 @@
 #' degrees of freedom, critical value of deviance statistic and p value. 
 #' 
 #' @examples
-#'mdl_full <- glm(nameBin ~ diameter + green + blue + weight , 
-#'                data = citrus, family = binomial("logit"))
+#'mdl_full <- glm(nameBin ~ diameter + green + blue + weight, 
+#                 data = citrus, family = binomial("logit"))
 #'mdl_unfull <- glm(nameBin ~ diameter + weight + green, 
-#'                 data = citrus, family = binomial("logit"))
+#'                  data = citrus, family = binomial("logit"))
 #'
 #'deviance_test(model_H0 = mdl_unfull, model_H1 = mdl_full, alpha = 0.1)
 #' @export
@@ -36,3 +36,5 @@ deviance_test <- function(model_H0, model_H1, alpha = 0.05){
        "Critical_value" = qchisq(1 - alpha, df),
        "p_value" = p_val)
 }
+
+
