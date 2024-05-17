@@ -25,6 +25,7 @@ from set A is insignificant vs alternative H1: significant predictor exists in s
 }
 \examples{
 mdl_full <- glm(nameBin ~ diameter + green + blue + weight, 
+                 data = citrus, family = binomial("logit"))
 mdl_unfull <- glm(nameBin ~ diameter + weight + green, 
                  data = citrus, family = binomial("logit"))
 
