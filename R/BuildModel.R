@@ -8,7 +8,8 @@
 #' @param strNameY character, name of dependent variable Y which takes the values 0 and 1
 #' @param pred character vector, vector of predictors' names, 
 #' must be columns of \code{data}
-#' @return summary of model
+#' @param smmr boolean, set TRUE if you want to have model summary, \code{summary(model)}
+#' @return model and summary of model (if wanted)
 #' 
 #' @importFrom stats glm
 #' 
@@ -16,9 +17,15 @@
 #' possiblePred <- colnames(citrus)[2:6]
 #' buildModel(citrus, "nameBin", possiblePred)
 #' @export
-buildModel <- function(data, strNameY, pred){
+buildModel <- function(data, strNameY, pred, smmr = TRUE){
   formula <- .getModelFormula(strNameY, pred)
   model <- stats::glm(formula, data, family = "binomial")
   
-  summary(model)
+  result <- model
+  
+  if(smmr){
+    result <- list(model, summary(model))
+  }
+  
+  result
 }

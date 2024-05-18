@@ -4,7 +4,7 @@
 \alias{buildModel}
 \title{Model Building Function}
 \usage{
-buildModel(data, strNameY, pred)
+buildModel(data, strNameY, pred, smmr = TRUE)
 }
 \arguments{
 \item{data}{data.frame or data.table, from which data for model is taken}
@@ -13,9 +13,11 @@ buildModel(data, strNameY, pred)
 
 \item{pred}{character vector, vector of predictors' names,
 must be columns of \code{data}}
+
+\item{smmr}{boolean, set TRUE if you want to have model summary, \code{summary(model)}}
 }
 \value{
-summary of model
+model and summary of model (if wanted)
 }
 \description{
 Function makes model for given data table and its variables, one is name
