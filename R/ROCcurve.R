@@ -48,8 +48,6 @@
 #' @param threshold_sequance sequance of numeric values from 0 to 1, thresholds 
 #' of success' probability - if predicted probability of dependent variable is higher than treshold, the 
 #' event is counted as a success
-#' @param roc_points_list object of function .findpPointsOnTheROC, list of pairs 
-#' represents FPR and TPR for each threshold probability
 #' @param model object glm, logistic model
 #' @param strNameY characteristic, name of dependent variable which takes values
 #' 0 and 1

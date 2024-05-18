@@ -15,9 +15,6 @@ event is counted as a success}
 
 \item{strNameY}{characteristic, name of dependent variable which takes values
 0 and 1}
-
-\item{roc_points_list}{object of function .findpPointsOnTheROC, list of pairs
-represents FPR and TPR for each threshold probability}
 }
 \value{
 plot represents ROC curve
