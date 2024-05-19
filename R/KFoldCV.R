@@ -13,7 +13,7 @@
   rowNum <- nrow(data)
   
   if(rowNum < K){
-    stop(paste0("Number of rows: ", rowNum, " is samller than ", K))
+    stop(paste0("Number of rows: ", rowNum, " is smaller than ", K))
   }else if(rowNum %% K != 0){
     warning(paste0("Number of rows: ", rowNum, " is not divided by: ", K, 
                    ". Your data isn't evenly divided."))
