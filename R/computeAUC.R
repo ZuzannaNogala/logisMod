@@ -19,5 +19,5 @@
 #' @export
 computeAUC <- function(model, strNameY){
   roc_model <- pROC::roc(model$data[, get(strNameY)], model$fitted.values)
-  roc_model$auc
+  head(roc_model$auc)
 }
