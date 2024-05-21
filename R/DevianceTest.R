@@ -20,19 +20,19 @@
 #'                  data = citrus, family = binomial("logit"))
 #' mdl_unfull <- glm(nameBin ~ weight + green, 
 #'                  data = citrus, family = binomial("logit"))
-#'
+#'                  
 #' deviance_test(model_H0 = mdl_unfull, model_H1 = mdl_full, alpha = 0.1)
 #' @export
 deviance_test <- function(model_H0, model_H1, alpha = 0.05){
-  deviance_stat <- model_H0$deviance - model_H1$deviance
+  deviance_stat <- head(- 2 * (logLik(model_H0) - logLik(model_H1)))
   df <- length(model_H1$coefficients) - length(model_H0$coefficients)
   p_val <- 1 - pchisq(deviance_stat, df)
   
   params_names <- union(names(model_H0$coefficients), names(model_H1$coefficients))
-  testing_params_names <- setdiff(param_names, names(model_H0$coefficients))
+  testing_params_names <- setdiff(params_names, names(model_H0$coefficients))
   
   list("Tested_predictors" = testing_params_names, 
-       "Deviance_statistic" = deviance_stat, 
+       "Deviance_statistic" = round(deviance_stat, digits = 3), 
        "df" = df,
        "Critical_value" = qchisq(1 - alpha, df),
        "p_value" = p_val)
