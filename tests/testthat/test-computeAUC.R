@@ -4,3 +4,4 @@ test_that("computing AUC works", {
   
   expect_equal(computeAUC(model, "nameBin"), head(roc_stats$auc))
 })
+
