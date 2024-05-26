@@ -11,7 +11,8 @@ resPlot <- function(x, ...){
 #' 
 #' 
 #' @param x data.frame or data.table, from which data for model is taken
-#' @param ... character, names of dependent variable and predictor
+#' @param strNameY character, name of dependent variable Y which takes the values 0 and 1
+#' @param strNameX character, predictor's name, must be column of \code{data}
 #' @return plot of predicted probabilities for one dependent variable
 #' 
 #' @importFrom stats glm
@@ -21,11 +22,7 @@ resPlot <- function(x, ...){
 #' @examples
 #' resPlot(citrus, "nameBin", "diameter")
 #' @export
-resPlot.default <- function(x, ...){
-  varNames <- list(...)
-  strNameY <- varNames[[1]]
-  strNameX <- varNames[[2]]
-  
+resPlot.default <- function(x, strNameY, strNameX){
   formula <- .getModelFormula(strNameY, strNameX)
   model <- stats::glm(formula, x, family = "binomial")
   
@@ -64,7 +61,7 @@ resPlot.default <- function(x, ...){
 #' model <- buildModel(nameBin ~ red, citrus)
 #' resPlot(model)
 #' @export
-resPlot.LogisMod <- function(x, ...){
+resPlot.LogisMod <- function(x){
   data <- x$data
   formula <- x$formula
   formulaTXT <- deparse(formula)

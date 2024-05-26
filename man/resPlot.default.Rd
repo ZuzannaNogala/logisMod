@@ -4,12 +4,14 @@
 \alias{resPlot.default}
 \title{Plot of predicted probabilities}
 \usage{
-\method{resPlot}{default}(x, ...)
+\method{resPlot}{default}(x, strNameY, strNameX)
 }
 \arguments{
-\item{...}{character, names of dependent variable and predictor}
+\item{x}{data.frame or data.table, from which data for model is taken}
 
-\item{data}{data.frame or data.table, from which data for model is taken}
+\item{strNameY}{character, name of dependent variable Y which takes the values 0 and 1}
+
+\item{strNameX}{character, predictor's name, must be column of \code{data}}
 }
 \value{
 plot of predicted probabilities for one dependent variable
@@ -17,7 +19,8 @@ plot of predicted probabilities for one dependent variable
 \description{
 Function makes model for given data table and its variables, one is name
 (character) of dependent variable, other - predictor's name (character). Then
-plots predicted probabilities in comparison to true values.
+plots predicted probabilities in comparison to true values. Default version
+when we don't need model but want to plot predicted probabilities.
 }
 \examples{
 resPlot(citrus, "nameBin", "diameter")

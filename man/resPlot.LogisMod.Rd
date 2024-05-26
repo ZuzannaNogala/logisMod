@@ -4,7 +4,7 @@
 \alias{resPlot.LogisMod}
 \title{Plot of predicted probabilities}
 \usage{
-\method{resPlot}{LogisMod}(x, ...)
+\method{resPlot}{LogisMod}(x)
 }
 \arguments{
 \item{x}{model of class LogisMod}
@@ -13,7 +13,8 @@
 plot of predicted probabilities for one dependent variable
 }
 \description{
-Function plots predicted probabilities in comparison to true values.
+Function plots predicted probabilities in comparison to true values. For use
+when we created model and want to plot it.
 }
 \examples{
 model <- buildModel(nameBin ~ red, citrus)
