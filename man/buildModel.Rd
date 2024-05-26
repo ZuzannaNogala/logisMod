@@ -4,7 +4,7 @@
 \alias{buildModel}
 \title{Model Building Function}
 \usage{
-buildModel(data, strNameY, pred, smmr = TRUE)
+buildModel(formula, data)
 }
 \arguments{
 \item{data}{data.frame or data.table, from which data for model is taken}
