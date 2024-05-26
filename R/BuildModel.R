@@ -11,8 +11,7 @@
 #' @importFrom stats glm
 #' 
 #' @examples
-#' possiblePred <- colnames(citrus)[2:6]
-#' buildModel(citrus, "nameBin", possiblePred)
+#' buildModel(nameBin ~ red, citrus)
 #' @export
 buildModel <- function(formula, data){
   model <- stats::glm(formula, data, family = "binomial")

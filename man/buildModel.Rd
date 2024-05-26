@@ -7,24 +7,18 @@
 buildModel(formula, data)
 }
 \arguments{
+\item{formula}{an object of class "formula", a symbolic description of the
+model to be fitted, same as in \link[stats]{glm}}
+
 \item{data}{data.frame or data.table, from which data for model is taken}
-
-\item{strNameY}{character, name of dependent variable Y which takes the values 0 and 1}
-
-\item{pred}{character vector, vector of predictors' names,
-must be columns of \code{data}}
-
-\item{smmr}{boolean, set TRUE if you want to have model summary, \code{summary(model)}}
 }
 \value{
-model and summary of model (if wanted)
+logistic model of class glm and also new LogisMod class
 }
 \description{
-Function makes model for given data table and its variables, one is name
-(character) of dependent variable, other - predictors' names (as character
-vector).
+Function makes model based on given formula, created using variable's names
+from analised data table.
 }
 \examples{
-possiblePred <- colnames(citrus)[2:6]
-buildModel(citrus, "nameBin", possiblePred)
+buildModel(nameBin ~ red, citrus)
 }
