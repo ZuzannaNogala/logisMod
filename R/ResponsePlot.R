@@ -67,7 +67,7 @@ resPlot.LogisMod <- function(x){
   formulaTXT <- deparse(formula)
   varNames <- stringr::str_split(formulaTXT, "~", simplify = TRUE)
   
-  if(ncol(varNames) > 2){
+  if(grepl("+", varNames[2])){
     stop("You can't plot more than two variables!")
   }
   
