@@ -6,7 +6,7 @@
 #' @param formula an object of class "formula", a symbolic description of the 
 #' model to be fitted, same as in \link[stats]{glm}
 #' @param data data.frame or data.table, from which data for model is taken
-#' @return logistic model of class glm and also new LogisMod class
+#' @return logistic model of class glm and also new logisMod class
 #' 
 #' @importFrom stats glm
 #' 

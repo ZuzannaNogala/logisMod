@@ -1,3 +1,4 @@
+#' @export
 resPlot <- function(x, ...){
   UseMethod("resPlot")
 }
@@ -67,7 +68,7 @@ resPlot.logisMod <- function(x){
   formulaTXT <- deparse(formula)
   varNames <- stringr::str_split(formulaTXT, "~", simplify = TRUE)
   
-  if(grepl("+", varNames[2])){
+  if(grepl("\\+", varNames[2])){
     stop("You can't plot more than two variables!")
   }
   
@@ -79,7 +80,7 @@ resPlot.logisMod <- function(x){
   newData[[strNameX]] <- seq(min(predData), max(predData), 0.1)
   newData <- as.data.table(newData)
   
-  resValues <- stats::predict.glm(model, newdata = newData, type = "response")
+  resValues <- stats::predict.glm(x, newdata = newData, type = "response")
   
   plotData <- newData[, resValues := resValues]
   

@@ -6,11 +6,17 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of projektROR is to provide tools for logistic regression. It
+The goal of projektROR is to provide all necessary tools for logistic
+regression.
+
+Our package supplies method for creating logistic regresion model. It
 consists of all needed methods to help visualise dependencies between
-variables. Let us create logistis regression models and compare them
-with each other. Our package also supplies tools such as K-Fold Cross
-Validation.
+variables. Let us compare two models with each other. Also with use of
+AIC and BIC, for small data tables (a few variables), we can compare all
+possible models. Our package also supplies method for K-Fold Cross
+Validation. Using this package you can plot ROC curve and compute AUC,
+too. One of its features is also possibility to compute and plot
+predicted probabilities based on created model.
 
 ## Installation
 
@@ -24,33 +30,32 @@ devtools::install_github("ZuzannaNogala/projektROR")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+We can start with creating model.
 
 ``` r
 library(projektROR)
-## basic example code
+model <- logisMod(nameBin ~ diameter, data = citrus)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+But not all of the methods require creating models beforehand. Now,
+because its consits of one independent variable, we can create plot of
+predictions.
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+projektROR:::resPlot(model)
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
+<img src="man/figures/README-plot-1.png" width="100%" />
 
-You can also embed plots, for example:
+One of the most colorful features is correlation heatmap. It shows
+pearson correlation coefficient as color intensity.
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+``` r
+vars <- c("diameter", "weight", "red", "green", "blue", "nameBin")
+corrHeatmap(citrus, vars)
+```
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+<img src="man/figures/README-heatmap-1.png" width="100%" />
+
+Usage of remaining methods you can find in exemplary data analisys
+included into package.

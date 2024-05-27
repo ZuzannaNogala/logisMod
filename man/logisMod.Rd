@@ -13,7 +13,7 @@ model to be fitted, same as in \link[stats]{glm}}
 \item{data}{data.frame or data.table, from which data for model is taken}
 }
 \value{
-logistic model of class glm and also new LogisMod class
+logistic model of class glm and also new logisMod class
 }
 \description{
 Function makes model based on given formula, created using variable's names

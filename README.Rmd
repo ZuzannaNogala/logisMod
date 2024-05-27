@@ -18,7 +18,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of projektROR is to provide tools for logistic regression. It consists of all needed methods to help visualise dependencies between variables. Let us create logistis regression models and compare them with each other. Our package also supplies tools such as K-Fold Cross Validation.
+The goal of projektROR is to provide all necessary tools for logistic regression. 
+
+Our package supplies method for creating logistic regresion model. It consists of all needed methods to help visualise dependencies between variables. Let us compare two models with each other. Also with use of AIC and BIC, for small data tables (a few variables), we can compare all possible models. Our package also supplies method for K-Fold Cross Validation. Using this package you can plot ROC curve and compute AUC, too. One of its features is also possibility to compute and plot predicted probabilities based on created model.
 
 ## Installation
 
@@ -31,25 +33,24 @@ devtools::install_github("ZuzannaNogala/projektROR")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+We can start with creating model.
 
 ```{r example}
 library(projektROR)
-## basic example code
+model <- logisMod(nameBin ~ diameter, data = citrus)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+But not all of the methods require creating models beforehand. Now, because its consits of one independent variable, we can create plot of predictions.
 
-```{r cars}
-summary(cars)
+```{r plot, comment=FALSE}
+projektROR:::resPlot(model)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
+One of the most colorful features is correlation heatmap. It shows pearson correlation coefficient as color intensity.
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r heatmap}
+vars <- c("diameter", "weight", "red", "green", "blue", "nameBin")
+corrHeatmap(citrus, vars)
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+Usage of remaining methods you can find in exemplary data analisys included into package.

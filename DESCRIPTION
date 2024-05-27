@@ -8,7 +8,8 @@ Description: The system of the summarizing logistic models' statistics based on 
 Imports: ggplot2,
     data.table,
     patchwork,
-    pROC
+    pROC,
+    stringr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
