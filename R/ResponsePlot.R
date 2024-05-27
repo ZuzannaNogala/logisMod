@@ -48,7 +48,7 @@ resPlot.default <- function(x, strNameY, strNameX){
 #' Function plots predicted probabilities in comparison to true values. For use
 #' when we created model and want to plot it.
 #' 
-#' @param x model of class LogisMod
+#' @param x model of class logisMod
 #' @return plot of predicted probabilities for one dependent variable
 #' 
 #' @importFrom stats glm
@@ -58,10 +58,10 @@ resPlot.default <- function(x, strNameY, strNameX){
 #' @import data.table
 #' 
 #' @examples
-#' model <- buildModel(nameBin ~ red, citrus)
+#' model <- logisMod(nameBin ~ red, citrus)
 #' resPlot(model)
 #' @export
-resPlot.LogisMod <- function(x){
+resPlot.logisMod <- function(x){
   data <- x$data
   formula <- x$formula
   formulaTXT <- deparse(formula)

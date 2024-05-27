@@ -11,12 +11,12 @@
 #' @importFrom stats glm
 #' 
 #' @examples
-#' buildModel(nameBin ~ red, citrus)
+#' logisMod(nameBin ~ red, citrus)
 #' @export
-buildModel <- function(formula, data){
+logisMod <- function(formula, data){
   model <- stats::glm(formula, data, family = "binomial")
   
-  class(model) <- c(class(model), "LogisMod")
+  class(model) <- c(class(model), "logisMod")
   
   model
 }
