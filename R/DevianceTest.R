@@ -11,6 +11,8 @@
 #' 
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq
+#' @importFrom stats logLik
+#' @importFrom utils head
 #' 
 #' @return list of names of testing predictors, value of deviance statistic, 
 #' degrees of freedom, critical value of deviance statistic and p value. 

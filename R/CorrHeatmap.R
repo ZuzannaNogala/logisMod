@@ -19,13 +19,13 @@
 #' 
 #' @export
 corrHeatmap <- function(data, variables){
-  corr <- stats::cor(data[, ..variables])
+  corr <- stats::cor(data[, variables, with = FALSE])
   corrDT <- as.data.table(corr, keep.rownames = TRUE)
   corrLong <- melt(corrDT, id.vars = "rn", measure.vars = variables)
   
-  ggplot(corrLong, aes(x = rn, y = variable)) +
-    geom_tile(aes(fill = value)) +
-    geom_text(aes(label = round(value, 1))) +
+  ggplot(corrLong, aes(x = .data$rn, y = .data$variable)) +
+    geom_tile(aes(fill = .data$value)) +
+    geom_text(aes(label = round(.data$value, 1))) +
     theme_minimal() +
     scale_fill_gradient(low = "white", high = "red") +
     scale_x_discrete(limits = rev(variables)) +
