@@ -1,11 +1,20 @@
 ---
-title: "my_vignette"
+title: "A guide to projektROR"
 output: rmarkdown::html_vignette
+author: Hankus Oktawia, Nogala Zuzanna
 vignette: >
-  %\VignetteIndexEntry{my_vignette}
+  %\VignetteIndexEntry{A guide to projektROR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+# About 
+
+The projektROR is a R package with useful tools to analyze data using logistic model. 
+
+Our package provides a method to build logistic regression based on user's data, which are $\textit{data.table}$ object. There are few methods to help user visualize data sets. The package cointent a boxplot method to show relationship between regresors and dependent variable. In addition user can see Correlation Heatmap. Fethermore user can compare models with implemented method of ROC curve with AUC or plot with fitted logit curve to data. Also package allows to compare regression with informative criterias like AIC, BIC and also by K-Fold Cross Validation. In addition, there is a method to computed all responese predictions for created model. 
+
+In our package there are two datasets $\textit{citrus}$ and $\textit{creditData}$, which are $\textit{data.table}$ objects. Based of them, we will show the funtions in projektROR package.
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -17,3 +26,35 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(projektROR)
 ```
+
+## 1. Visualize dataset
+
+In this guide we will work with $\textit{citrus}$ dataset. This dataset contains 10000 observations. In variable $\textit{nameBin}$ there is a information if the fruit is an orange (0) or a grapefruit (1) based on features like diameter, weight and the RGB values of color. 
+
+```{r, echo = TRUE}
+str(citrus)
+```
+
+Firstly, let's create boxplots with using $\textit{visual_boxplot}$ method. That's can help us to see relationship beetween features and $\textit{nameBin}$ variable, which we want to model.
+
+```{r, echo = TRUE}
+visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X = "diameter", plot_title= " ")
+```
+
+```{r, echo=FALSE,}
+visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X = "weight", plot_title= " ")
+visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X = "red", plot_title= " ")
+visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X = "green", plot_title= " ")
+visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X = "blue", plot_title= " ")
+```
+
+Take a look on correlation Heatmap
+
+```{r, echo=FALSE}
+vars <- c("diameter", "weight", "red", "green", "blue", "nameBin")
+#corrHeatmap(citrus, vars)
+```
+
+## 2. Build a model
+
+
