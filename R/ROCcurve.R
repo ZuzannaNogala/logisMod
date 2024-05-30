@@ -18,6 +18,7 @@
 #'
 #' @keywords internal
 .findPointsOnTheROC <- function(thresholds_sequance, model, strNameY){
+  if(sum(thresholds_sequance > 1) != 0) stop("thresholds_sequance is from 0 to 1!")
   coefs <- model$coefficients
   preds <- names(coefs)[-1]
   Fails <- model$data[get(strNameY) == 0, ..preds]
@@ -59,10 +60,10 @@
 #' 
 #' @examples
 #' model <- glm(nameBin ~ diameter + blue + red, data = citrus, family = binomial("logit"))
-#' drawROC(seq(0, 1, by = 0.05), model, "nameBin")
+#' drawROC(seq(0, 1, by = 0.01), model, "nameBin")
 #' @export
 drawROC <- function(threshold_sequance, model, strNameY){
-  roc_points_list <- .findPointsOnTheROC(seq(0, 1, by = 0.05), model, strNameY)
+  roc_points_list <- .findPointsOnTheROC(threshold_sequance, model, strNameY)
   roc_points_dt <- transpose(as.data.table(roc_points_list))
   names(roc_points_dt) <- c("FPR", "TPR")
   
@@ -72,13 +73,14 @@ drawROC <- function(threshold_sequance, model, strNameY){
                                      rep("ROC curve of model", length(threshold_sequance))))
   
   ggplot() +
-    geom_point(data=visual_dt[22:42, ], aes(x, y), alpha = 0.5, size = 0.9) +
-    geom_path(data=visual_dt, aes(x, y, group = type, col = type), size = 0.6) +
+    geom_point(data=visual_dt[type == "ROC curve of model", ], aes(x, y), size = 0.9, alpha = 0.5) +
+    geom_path(data=visual_dt, aes(x, y, group = type, col = type), linewidth = 0.6) +
     labs(title= paste0("ROC curve"), 
          x = "False Positive Rate",
          y = "True Positive Rate")+ 
     theme_bw() +
     scale_color_manual(values = c("red", "#2574A9")) +
     annotate(geom="text", label = paste("AUC - ", round(computeAUC(model, strNameY), digits = 3)),
-             x=0.9, y=0.05, size = 4.5)
+             x=0.9, y=0.05, size = 4)
+  
 }
