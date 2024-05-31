@@ -60,6 +60,8 @@ corrHeatmap(citrus, vars)
 Usage of remaining methods you can find in exemplary data analisys
 included into package.
 
+## More Details
+
 If you want learn more about package and see how another methods works
 look at our html vignette.
 
