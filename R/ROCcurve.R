@@ -60,7 +60,7 @@
 #' 
 #' @examples
 #' model <- glm(nameBin ~ diameter + blue + red, data = citrus, family = binomial("logit"))
-#' drawROC(seq(0, 1, by = 0.01), model, "nameBin")
+#' drawROC(seq(0, 1, by = 0.01), model, "nameBin") 
 #' @export
 drawROC <- function(threshold_sequance, model, strNameY){
   roc_points_list <- .findPointsOnTheROC(threshold_sequance, model, strNameY)

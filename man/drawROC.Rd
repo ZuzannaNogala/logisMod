@@ -27,5 +27,5 @@ Rate (FPR) against True Positive Rate (TPR) at each threshold setting.
 }
 \examples{
 model <- glm(nameBin ~ diameter + blue + red, data = citrus, family = binomial("logit"))
-drawROC(seq(0, 1, by = 0.05), model, "nameBin")
+drawROC(seq(0, 1, by = 0.01), model, "nameBin") 
 }
