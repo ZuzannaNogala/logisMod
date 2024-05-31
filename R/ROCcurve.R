@@ -27,9 +27,9 @@
   resp_vec <- resp_prediction_for_model(model)
   
   FP <- sapply(thresholds_sequance, 
-               function(p) False_Positive(p, resp_vec, model$data[, get(strNameY)]))
+               function(p) .False_Positive(p, resp_vec, model$data[, get(strNameY)]))
   TP <- sapply(thresholds_sequance, 
-               function(p) True_Positive(p, resp_vec, model$data[, get(strNameY)]))
+               function(p) .True_Positive(p, resp_vec, model$data[, get(strNameY)]))
   
   
   FPR <- FP / nrow(Fails)

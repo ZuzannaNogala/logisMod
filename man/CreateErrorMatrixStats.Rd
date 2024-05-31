@@ -19,7 +19,7 @@ from data set; output of function resp_prediction_for_model()}
 list with Error Matrix, Accuracy of model, Sensitivity and Specificity.
 }
 \description{
-functions return list which cointains Confussion / Error Matrix (i.e sum of: True Positives (TP),
+function returns list which cointains Confussion / Error Matrix (i.e sum of: True Positives (TP),
 False Positives (FP), True Negative (TN), False Negative (FN)), Accuracy of model,
 Sensitivity and Specificity.
 }
