@@ -57,7 +57,7 @@ Usage of remaining methods you can find in exemplary data analisys included into
 
 If you want learn more about package and see how another methods works look at our html vignette.
 
-```{r, eval = FALSE}
+```{r vigniette, eval = FALSE}
 browseVignettes("projektROR")
 ```
 

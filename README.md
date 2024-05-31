@@ -25,7 +25,7 @@ You can install the development version of projektROR from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ZuzannaNogala/projektROR")
+devtools::install_github("ZuzannaNogala/projektROR", build_vignettes = TRUE)
 ```
 
 ## Example
@@ -59,3 +59,10 @@ corrHeatmap(citrus, vars)
 
 Usage of remaining methods you can find in exemplary data analisys
 included into package.
+
+If you want learn more about package and see how another methods works
+look at our html vignette.
+
+``` r
+browseVignettes("projektROR")
+```
