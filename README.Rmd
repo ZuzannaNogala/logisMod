@@ -56,9 +56,17 @@ potential predictors in logistic regression.
 head(creditData)
 ```
 
+## Model building
+
+Making model in this package is using `stats::glm` function with particular arguments, but it also gives the model another class, which enables us to use specific methods.
+
+```{r model, eval = FALSE}
+logisMod(nameBin ~ diameter, citrus)
+```
+
 ## More Details
 
-If you want learn more about package and see how all methods work look
+If you want to learn more about this package and see how all of the methods work look
 at our html vignette.
 
 ```{r vigniette, eval = FALSE}

@@ -80,10 +80,20 @@ head(creditData)
 #> 6:               0          0          0    lack of data               1      0
 ```
 
+## Model building
+
+Making model in this package is using `stats::glm` function with
+particular arguments, but it also gives the model another class, which
+enables us to use specific methods.
+
+``` r
+logisMod(nameBin ~ diameter, citrus)
+```
+
 ## More Details
 
-If you want learn more about package and see how all methods work look
-at our html vignette.
+If you want to learn more about this package and see how all of the
+methods work look at our html vignette.
 
 ``` r
 browseVignettes("projektROR")
