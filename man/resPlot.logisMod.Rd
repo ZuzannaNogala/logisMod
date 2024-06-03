@@ -4,10 +4,12 @@
 \alias{resPlot.logisMod}
 \title{Plot of predicted probabilities}
 \usage{
-\method{resPlot}{logisMod}(x)
+\method{resPlot}{logisMod}(x, ...)
 }
 \arguments{
 \item{x}{model of class logisMod}
+
+\item{...}{other parameters}
 }
 \value{
 plot of predicted probabilities for one dependent variable
@@ -15,6 +17,10 @@ plot of predicted probabilities for one dependent variable
 \description{
 Function plots predicted probabilities in comparison to true values. For use
 when we created model and want to plot it.
+}
+\details{
+This method uses \code{stats::glm(formula, x, family = "binomial")}, please
+take care of proper type of the arguments.
 }
 \examples{
 model <- logisMod(nameBin ~ red, citrus)
