@@ -50,7 +50,7 @@ p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin",
                      str_name_X = "weight", plot_title = "weight vs nameBin")
 ```
 
-Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "-", "/". 
+Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "/". 
 
 ```{r, echo=TRUE,  fig.width=5, fig.height=4, fig.align='center'}
 p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", 
@@ -138,8 +138,10 @@ computeAUC(logisMod(nameBin ~ weight + red + green + blue, data = citrus), "name
 computeAUC(logisMod(nameBin ~ diameter + weight + red + green + blue, data = citrus), "nameBin")
 ```
 
-```{r}
-# drawROC()
+```{r, fig.height=4, fig.width=7}
+thres_hold_seq <- seq(0,1, by = 0.05)
+
+drawROC(thres_hold_seq, logisMod(nameBin ~ diameter + red + green + blue, data = citrus), "nameBin")
 ```
 
 ## 4. Plot response

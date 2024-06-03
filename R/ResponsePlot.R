@@ -128,5 +128,6 @@ resPlot.logisMod <- function(x, ...){
     geom_line(plotData, mapping = aes(x = get(strNameX), y = resValues), color = "#ed583f") +
     labs(x = strNameX,
          y = strNameY,
-         title = paste0("Probabilities of ", strNameY, " as function of ", strNameX))
+         title = paste0("Probabilities of ", strNameY, " as function of ", strNameX)) +
+    theme_bw()
 }
