@@ -19,6 +19,9 @@ Pearson correlation coefficients heatmap
 Function let us create table of pearson correlation coefficient between
 chosen columns in data table. Displays it as a heatmap for better understanding.
 }
+\details{
+Reminder: We can compute correlation coefficient only for numeric vectors.
+}
 \examples{
 vars <- c("diameter", "weight", "red", "green", "blue", "nameBin")
 corrHeatmap(citrus, vars)
