@@ -32,17 +32,20 @@
 #' @param strNameY character, name of dependent variable Y which takes the values 0 and 1
 #' @param possPred character vector, vector of possible predictors' names, 
 #' must be columns of data table from which model is creating
+#' @param intercept default TRUE, set FALSE if you do not want to include intercept into model
 #' @return formula for model
 #' 
 #' @importFrom stats as.formula
 #' 
 #' @keywords internal
-.getModelFormula <- function(strNameY, pred){
+.getModelFormula <- function(strNameY, pred, intercept = TRUE){
   
   if(length(pred) == 0){
     formulaTXT <- paste0(strNameY, "~ 1")
-  }else{
+  }else if(intercept){
     formulaTXT <- paste0(strNameY, "~", paste(pred, collapse = "+"))
+  }else{
+    formulaTXT <- paste0(strNameY, "~ -1 + ", paste(pred, collapse = "+"))
   }
   
   stats::as.formula(formulaTXT)
@@ -70,6 +73,10 @@
 #' countInfCrit(citrus, "nameBin", possiblePred)
 #' @export
 countInfCrit <- function(data, strNameY, possPred){
+  
+  if(length(possPred) > 8){
+    stop("Too much models for comparison.")
+  }
   possPredComb <- .getAllCombination(possPred)
   
   result <- lapply(possPredComb, function(item){

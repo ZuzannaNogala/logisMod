@@ -26,7 +26,7 @@ when we don't need model but want to plot predicted probabilities.
 }
 \details{
 This method uses \code{stats::glm(formula, x, family = "binomial")}, please
-take care of proper type of the arguments.
+take care of proper type of the arguments. Intercept is incuded in the created model.
 }
 \examples{
 resPlot(citrus, "nameBin", "diameter")

@@ -24,7 +24,7 @@ resPlot <- function(x, ...){
 #' 
 #' @details
 #' This method uses \code{stats::glm(formula, x, family = "binomial")}, please
-#' take care of proper type of the arguments.
+#' take care of proper type of the arguments. Intercept is incuded in the created model.
 #'
 #' @importFrom stats glm
 #' @importFrom stats predict.glm
@@ -34,6 +34,11 @@ resPlot <- function(x, ...){
 #' resPlot(citrus, "nameBin", "diameter")
 #' @export
 resPlot.default <- function(x, strNameY, strNameX, ...){
+  
+  if(length(strNameX) != 1){
+    stop("You can plot only one variable!")
+  }
+  
   formula <- .getModelFormula(strNameY, strNameX)
   model <- stats::glm(formula, x, family = "binomial")
   
@@ -52,7 +57,7 @@ resPlot.default <- function(x, strNameY, strNameX, ...){
 #' Plot of predicted probabilities
 #' 
 #' Function plots predicted probabilities in comparison to true values. For use
-#' when we created model and want to plot it.
+#' when we created model and want to plot it. Only for one-variable models (intercept included).
 #' 
 #' @param x model of class logisMod
 #' @param ... other parameters
@@ -61,6 +66,8 @@ resPlot.default <- function(x, strNameY, strNameX, ...){
 #' @details
 #' This method uses \code{stats::glm(formula, x, family = "binomial")}, please
 #' take care of proper type of the arguments.
+#' 
+#' Error also occurs when you want to plot without intercept, because we should include it.
 #' 
 #' @importFrom stats glm
 #' @importFrom stats predict.glm
@@ -79,7 +86,7 @@ resPlot.logisMod <- function(x, ...){
   varNames <- stringr::str_split(formulaTXT, "~", simplify = TRUE)
   
   if(grepl("\\+", varNames[2])){
-    stop("You can't plot more than two variables!")
+    stop("You can't plot more than two variables! Or you should use intercept!")
   }
   
   strNameY <- stringr::str_trim(varNames[1])

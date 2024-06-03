@@ -4,10 +4,12 @@
 \alias{.getModelFormula}
 \title{Formula for making model}
 \usage{
-.getModelFormula(strNameY, pred)
+.getModelFormula(strNameY, pred, intercept = TRUE)
 }
 \arguments{
 \item{strNameY}{character, name of dependent variable Y which takes the values 0 and 1}
+
+\item{intercept}{default TRUE, set FALSE if you do not want to include intercept into model}
 
 \item{possPred}{character vector, vector of possible predictors' names,
 must be columns of data table from which model is creating}

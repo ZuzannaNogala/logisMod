@@ -57,4 +57,53 @@ vars <- c("diameter", "weight", "red", "green", "blue", "nameBin")
 
 ## 2. Build a model
 
+Firstly we want to build model with all of the variables.
 
+```{r, echo=T, results='hide', warning=FALSE}
+allVarModel <- logisMod(nameBin ~ ., citrus)
+```
+
+If we want to see the results we use base function `summary` or just print the model.
+
+```{r}
+summary(allVarModel)
+```
+
+It shows us that all of the variables are null, so we should consider different predictors. Lets see what we get for just "diameter" and "weight".
+
+```{r, warning=FALSE}
+dwModel <- logisMod(nameBin ~ diameter + weight, citrus)
+summary(dwModel)
+```
+
+## 3. Plot response
+
+Above examples show that this data set may not be perfect for logistic regression, but we may try to use another function. Lets plot predicted probabilities for one-variable model (we include intercept).
+
+```{r, fig.height=4, fig.width=7}
+oneVarModel <- logisMod(nameBin ~ red, citrus) 
+resPlot(oneVarModel)
+```
+
+We don't have to create model to plot prediction. This function also works with data.table (or data.frame) and names of variables.
+
+```{r, fig.height=4, fig.width=7}
+resPlot(citrus, "nameBin", "diameter")
+```
+
+## 4. Correlation heatmap
+
+We can create also correlation heatmap. It is just correlation matix but portrayed as heatmap.
+
+```{r, fig.height=4, fig.width=7}
+corrHeatmap(citrus, c("diameter", "weight", "red"))
+```
+
+## 5. AIC/BIC
+
+One of the most important features of this package is possibility to compare all possible models for given vector of variables. It works with character vector of names of variables.
+
+```{r, warning=FALSE}
+possiblePred <- colnames(citrus)[2:6]
+countInfCrit(citrus, "nameBin", possiblePred)
+```
