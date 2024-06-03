@@ -1,7 +1,7 @@
 #' Prediction of new values
 #' 
 #' @param object a fitted object of class inheriting from "logisMod'
-#' @param newdata da data frame in which to look for variables with which to predict
+#' @param newdata data frame in which to look for variables with which to predict
 #' @param ... other parameters
 #' 
 #' @importFrom stats predict.glm

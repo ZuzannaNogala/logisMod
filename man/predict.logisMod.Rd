@@ -9,7 +9,7 @@
 \arguments{
 \item{object}{a fitted object of class inheriting from "logisMod'}
 
-\item{newdata}{da data frame in which to look for variables with which to predict}
+\item{newdata}{data frame in which to look for variables with which to predict}
 
 \item{...}{other parameters}
 }
