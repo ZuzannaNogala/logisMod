@@ -2,8 +2,6 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -15,51 +13,54 @@ knitr::opts_chunk$set(
 
 # projektROR
 
-<!-- badges: start -->
-<!-- badges: end -->
+The goal of projektROR is to provide all necessary tools for data
+analisys using logistic regression.
 
-The goal of projektROR is to provide all necessary tools for logistic regression. 
+Our package supplies method for creating logistic regresion model. It
+consists of all needed methods to help visualise dependencies between
+variables. Let us compare two models with each other. Also with use of
+AIC and BIC, for small data tables (a few variables), we can compare all
+possible models. Our package also supplies method for K-Fold Cross
+Validation. Using this package you can plot ROC curve and compute AUC,
+too. One of its features is also possibility to compute and plot
+predicted probabilities based on created model.
 
-Our package supplies method for creating logistic regresion model. It consists of all needed methods to help visualise dependencies between variables. Let us compare two models with each other. Also with use of AIC and BIC, for small data tables (a few variables), we can compare all possible models. Our package also supplies method for K-Fold Cross Validation. Using this package you can plot ROC curve and compute AUC, too. One of its features is also possibility to compute and plot predicted probabilities based on created model.
+Package contains two exemplary data sets to get to know it better.
 
 ## Installation
 
-You can install the development version of projektROR from [GitHub](https://github.com/) with:
+You can install the development version of projektROR from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("ZuzannaNogala/projektROR", build_vignettes = TRUE)
 ```
+## Data
 
-## Example
+First data set is `citrus`. This data set takes the color, weight, and
+diameter of an “average” orange and grapefruit, which we can be used to
+predict what type of fruit we have.
 
-We can start with creating model.
-
-```{r example}
+```{r citrus}
 library(projektROR)
-model <- logisMod(nameBin ~ diameter, data = citrus)
+head(citrus)
 ```
 
-But not all of the methods require creating models beforehand. Now, because its consits of one independent variable, we can create plot of predictions.
+Second one is a set of information about bank clients and status of
+their loan payoff. Contains status of loan payoff from one month and
+information such total income per year or education type, to use as
+potential predictors in logistic regression.
 
-```{r plot, comment=FALSE}
-projektROR:::resPlot(model)
+```{r credit}
+head(creditData)
 ```
-
-One of the most colorful features is correlation heatmap. It shows pearson correlation coefficient as color intensity.
-
-```{r heatmap}
-vars <- c("diameter", "weight", "red", "green", "blue", "nameBin")
-corrHeatmap(citrus, vars)
-```
-
-Usage of remaining methods you can find in exemplary data analisys included into package.
 
 ## More Details
 
-If you want learn more about package and see how another methods works look at our html vignette.
+If you want learn more about package and see how all methods work look
+at our html vignette.
 
 ```{r vigniette, eval = FALSE}
 browseVignettes("projektROR")
 ```
-
