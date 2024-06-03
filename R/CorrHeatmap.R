@@ -9,6 +9,9 @@
 #' 
 #' @returns Pearson correlation coefficients heatmap
 #' 
+#' @details
+#' Reminder: We can compute correlation coefficient only for numeric vectors.
+#' 
 #' @import ggplot2
 #' @import data.table
 #' @importFrom stats cor
