@@ -22,5 +22,5 @@
 #' 
 #' @export
 predict.logisMod <- function(object, newdata, ...){
-  stats::predict.glm(object, newdata = newData, type = "response")
+  stats::predict.glm(object, newdata = newdata, type = "response")
 }
