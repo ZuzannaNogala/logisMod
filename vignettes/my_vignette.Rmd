@@ -158,3 +158,18 @@ We don't have to create model to plot prediction. This function also works with 
 ```{r, fig.height=4, fig.width=7}
 resPlot(citrus, "nameBin", "diameter")
 ```
+
+## 5. K-Fold Cross Validation
+
+K-fold cross-validation technique is a method of resampling the data set in order to evaluate a machine learning model. In this technique, the parameter K refers to the number of different subsets that the given data set is to be split into. Further, K-1 subsets are used to train the model and the left out subsets are used as a validation set. For each subset we create model based on train data and count accuracy (ACC), then we get accuracy score by applying mean to all the accuracies received for all folds.
+
+\[ACC =  \frac{\sum_{i=1}^n I(y_i - \hat{y}_i)}{n},\]
+
+where $n$ is size of testing set. 
+
+Below we use 4-Fold Cross Validation with threshold equal 0.5. 
+
+```{r}
+kFoldCV(citrus, 4, 0.5, "nameBin", c("red", "blue"))
+```
+
