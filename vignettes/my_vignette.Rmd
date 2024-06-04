@@ -50,7 +50,11 @@ p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin",
                      str_name_X = "weight", plot_title = "weight vs nameBin")
 ```
 
+<<<<<<< HEAD
 Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "/". 
+=======
+Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "-", "/". 
+>>>>>>> vignitte changes
 
 ```{r, echo=TRUE,  fig.width=5, fig.height=4, fig.align='center'}
 p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", 
@@ -74,6 +78,7 @@ corrHeatmap(citrus, vars)
 
 ## 2.Build the model
 
+<<<<<<< HEAD
 Firstly we want to build model with all of the variables. The user can build a model using `logisMod()` method. 
 
 ```{r}
@@ -91,6 +96,12 @@ It shows us that all of the variables are null, so we should consider different 
 ```{r, warning=FALSE}
 dwModel <- logisMod(nameBin ~ diameter + weight, citrus)
 summary(dwModel)
+=======
+The user can build a model using `logisMod()` method.
+
+```{r}
+model <- logisMod(formula = nameBin ~ diameter + red + green + blue, data = citrus)
+>>>>>>> vignitte changes
 ```
 
 ## 3. Choose the model
@@ -98,6 +109,8 @@ summary(dwModel)
 ### 3.1 Comparing informative criterias 
 
 One of the most important features of this package is possibility to compare all possible models for given vector of variables. It works with character vector of names of variables.
+
+In our package there are few method to help the user choose a model. Firsty, method `countInfCrit()` computes values of criterias AIC and BIC for every possible set of predictors given by user.
 
 ```{r}
 Crit_dt <- countInfCrit(data = citrus, str = "nameBin", vars)
@@ -185,5 +198,3 @@ In this example we would choose:
 ```{r, echo = FALSE}
 mulKFCV[accScore == max(accScore)]
 ```
-
-
