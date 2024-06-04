@@ -173,3 +173,17 @@ Below we use 4-Fold Cross Validation with threshold equal 0.5.
 kFoldCV(citrus, 4, 0.5, "nameBin", c("red", "blue"))
 ```
 
+We can also compare multiple thresholds at once, when we want to check which one is better. We pick threshold with bigger accuracy score.
+
+```{r}
+mulKFCV <- kFoldCV(citrus, 4, seq(0.1, 1, 0.1), "nameBin", c("red", "blue"))
+mulKFCV
+```
+
+In this example we would choose:
+
+```{r, echo = FALSE}
+mulKFCV[accScore == max(accScore)]
+```
+
+
