@@ -39,10 +39,15 @@ resPlot.default <- function(x, strNameY, strNameX, ...){
     stop("You can plot only one variable!")
   }
   
+  predData <- x[[strNameX]]
+  
+  if(!is.numeric(predData)){
+    stop("Your variable should be numeric!")
+  }
+  
   formula <- .getModelFormula(strNameY, strNameX)
   model <- stats::glm(formula, x, family = "binomial")
   
-  predData <- x[[strNameX]]
   newData <- list()
   newData[[strNameX]] <- seq(min(predData), max(predData), 0.1)
   newData <- as.data.table(newData)
@@ -93,6 +98,11 @@ resPlot.logisMod <- function(x, ...){
   strNameX <- stringr::str_trim(varNames[2])
   
   predData <- data[[strNameX]]
+  
+  if(!is.numeric(predData)){
+    stop("Your variable should be numeric!")
+  }
+  
   newData <- list()
   newData[[strNameX]] <- seq(min(predData), max(predData), 0.1)
   newData <- as.data.table(newData)
