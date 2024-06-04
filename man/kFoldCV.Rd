@@ -13,7 +13,7 @@ kFoldCV(data, K, threshold, strNameY, pred)
 
 \item{threshold}{numeric from 0 to 1, threshold of success' probability -
 if predicted probability of dependent variable is higher than treshold, the
-event is counted as a success}
+event is counted as a success, if vector then for each accuracy score is computed}
 
 \item{strNameY}{character, name of dependent variable Y which takes the values 0 and 1}
 
@@ -21,7 +21,7 @@ event is counted as a success}
 must be columns of \code{data}}
 }
 \value{
-numeric, accuracy score
+data.table with choosen threshold and its accuracy score
 }
 \description{
 Implementation of K-Fold Cross Validation technique for logistic regression.
@@ -33,5 +33,6 @@ to all the accuracies received for all folds.
 }
 \examples{
 kFoldCV(citrus, 4, 0.5, "nameBin", c("red", "blue"))
+kFoldCV(citrus, 4, c(0.1, 0.5), "nameBin", c("red", "blue"))
 
 }

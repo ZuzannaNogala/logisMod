@@ -23,3 +23,8 @@ test_that("is data well partitioned??", {
   set.seed(8)
   expect_equal(.splitSet(dataToSplit, 2), result)
 })
+
+test_that("good type of threshold", {
+  expect_error(kFoldCV(citrus, 4, 3, "nameBin", c("red", "blue")))
+  expect_error(kFoldCV(citrus, 4, "c", "nameBin", c("red", "blue")))
+})

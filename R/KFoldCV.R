@@ -45,41 +45,56 @@
 #' @param K integer, number of folds
 #' @param threshold numeric from 0 to 1, threshold of success' probability - 
 #' if predicted probability of dependent variable is higher than treshold, the 
-#' event is counted as a success
+#' event is counted as a success, if vector then for each accuracy score is computed
 #' @param strNameY character, name of dependent variable Y which takes the values 0 and 1
 #' @param pred character vector, vector of predictors' names, 
 #' must be columns of \code{data}
 #' 
-#' @return numeric, accuracy score
+#' @return data.table with choosen threshold and its accuracy score
 #' 
 #' @import data.table
 #' @importFrom stats glm
 #' 
 #' @examples
 #' kFoldCV(citrus, 4, 0.5, "nameBin", c("red", "blue"))
+#' kFoldCV(citrus, 4, c(0.1, 0.5), "nameBin", c("red", "blue"))
 #' 
 #' @export
 kFoldCV <- function(data, K, threshold, strNameY, pred){
+  
+  if(!is.numeric(threshold)){
+    stop("Threshold must be numeric!")
+  }
+  
+  if(!all(between(threshold, 0, 1))){
+    stop("Threshold must be value from (0,1)!")
+  }
+  
   rowNum <- nrow(data)
   formula <- .getModelFormula(strNameY, pred)
   modelData <- data[, .SD, .SDcols = c(strNameY, pred)]
   
-  splittedIdx <- .splitSet(modelData, K)
-  
-  calc <- lapply(splittedIdx, function(idx){
-    test <- data[idx]
-    training <- data[-idx]
-    sizeTest <- length(idx)
+  result <- lapply(threshold, function(t){
+    splittedIdx <- .splitSet(modelData, K)
     
-    trueValues <- test[[strNameY]]
+    calc <- lapply(splittedIdx, function(idx){
+      test <- data[idx]
+      training <- data[-idx]
+      sizeTest <- length(idx)
+      
+      trueValues <- test[[strNameY]]
+      
+      model <- stats::glm(formula, training, family = "binomial")
+      prediction <- predict.glm(model, test, type = "response")
+      prediction <- ifelse(prediction > t, 1, 0)
+      
+      acc <- sum(trueValues == prediction) / sizeTest
+      acc
+    })
     
-    model <- stats::glm(formula, training, family = "binomial")
-    prediction <- predict.glm(model, test, type = "response")
-    prediction <- ifelse(prediction > threshold, 1, 0)
-    
-    acc <- sum(trueValues == prediction) / sizeTest
-    acc
+    list("threshold" = t, 
+         "accScore" = mean(unlist(calc)))
   })
   
-  mean(unlist(calc))
+  rbindlist(result)
 }
