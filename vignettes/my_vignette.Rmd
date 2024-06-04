@@ -50,11 +50,7 @@ p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin",
                      str_name_X = "weight", plot_title = "weight vs nameBin")
 ```
 
-<<<<<<< HEAD
 Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "/". 
-=======
-Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "-", "/". 
->>>>>>> vignitte changes
 
 ```{r, echo=TRUE,  fig.width=5, fig.height=4, fig.align='center'}
 p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", 
@@ -78,7 +74,6 @@ corrHeatmap(citrus, vars)
 
 ## 2.Build the model
 
-<<<<<<< HEAD
 Firstly we want to build model with all of the variables. The user can build a model using `logisMod()` method. 
 
 ```{r}
@@ -96,17 +91,15 @@ It shows us that all of the variables are null, so we should consider different 
 ```{r, warning=FALSE}
 dwModel <- logisMod(nameBin ~ diameter + weight, citrus)
 summary(dwModel)
-=======
+```
+
 The user can build a model using `logisMod()` method.
 
 ```{r}
 model <- logisMod(formula = nameBin ~ diameter + red + green + blue, data = citrus)
->>>>>>> vignitte changes
 ```
 
-## 3. Choose the model
-
-### 3.1 Comparing informative criterias 
+## 3. Comparing informative criterias 
 
 One of the most important features of this package is possibility to compare all possible models for given vector of variables. It works with character vector of names of variables.
 
@@ -125,7 +118,7 @@ Crit_dt[union(which.min(AIC), which.min(BIC)), ]
 
 However, the criterias is good for small amount of predictors. For big set of regressors, the amount of models the method should check is growing and that's not optimal.
 
-### 3.2 Deviance test
+## 4. Deviance test
 
 Another method to testing model is deviance Goodness-of-fit test named `deviance_test()`. Consider the testing problem:
 
@@ -143,7 +136,7 @@ model_full <- logisMod(nameBin ~ diameter + weight + red + green + blue, data = 
 deviance_test(model_H0 = model_test, model_H1 = model_full, alpha = 0.1)
 ```
 
-### 3.3 ROC curve and AUC
+### 5. ROC curve and AUC
 
 ```{r}
 computeAUC(logisMod(nameBin ~ diameter + red + green + blue, data = citrus), "nameBin")
@@ -157,7 +150,7 @@ thres_hold_seq <- seq(0,1, by = 0.05)
 drawROC(thres_hold_seq, logisMod(nameBin ~ diameter + red + green + blue, data = citrus), "nameBin")
 ```
 
-## 4. Plot response
+## 6. Plot response
 
 Above examples show that this data set may not be perfect for logistic regression, but we may try to use another function. Lets plot predicted probabilities for one-variable model (we include intercept).
 
@@ -172,7 +165,7 @@ We don't have to create model to plot prediction. This function also works with 
 resPlot(citrus, "nameBin", "diameter")
 ```
 
-## 5. K-Fold Cross Validation
+## 7. K-Fold Cross Validation
 
 K-fold cross-validation technique is a method of resampling the data set in order to evaluate a machine learning model. In this technique, the parameter K refers to the number of different subsets that the given data set is to be split into. Further, K-1 subsets are used to train the model and the left out subsets are used as a validation set. For each subset we create model based on train data and count accuracy (ACC), then we get accuracy score by applying mean to all the accuracies received for all folds.
 
