@@ -4,12 +4,12 @@
 \alias{predict.logisMod}
 \title{Prediction of new values}
 \usage{
-\method{predict}{logisMod}(object, newdata, ...)
+\method{predict}{logisMod}(object, new_data, ...)
 }
 \arguments{
 \item{object}{a fitted object of class inheriting from "logisMod'}
 
-\item{newdata}{data frame in which to look for variables with which to predict}
+\item{new_data}{data frame in which to look for variables with which to predict}
 
 \item{...}{other parameters}
 }

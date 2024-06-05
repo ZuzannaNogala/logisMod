@@ -191,3 +191,19 @@ In this example we would choose:
 ```{r, echo = FALSE}
 mulKFCV[accScore == max(accScore)]
 ```
+
+## 8. Prediction of new values
+
+We are creating models mostly beacuse we want to predict new values of dependent variable based on new observations. We provide function that can do this, it is fixed form of \code{stats::predict.glm}. For more details or different version see \link[stats]{predict.glm}.
+
+
+```{r}
+library(data.table)
+model <- logisMod(nameBin ~ red, citrus)
+predData <- citrus[["red"]]
+newData <- list()
+newData[["red"]] <- seq(min(predData), max(predData), 0.1)
+newData <- as.data.table(newData)
+
+predict(model, newData)
+```

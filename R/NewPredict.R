@@ -1,7 +1,7 @@
 #' Prediction of new values
 #' 
 #' @param object a fitted object of class inheriting from "logisMod'
-#' @param newdata data frame in which to look for variables with which to predict
+#' @param new_data data frame in which to look for variables with which to predict
 #' @param ... other parameters
 #' 
 #' @importFrom stats predict.glm
@@ -21,6 +21,6 @@
 #' different version see \link[stats]{predict.glm}.
 #' 
 #' @export
-predict.logisMod <- function(object, newdata, ...){
-  stats::predict.glm(object, newdata = newdata, type = "response")
+predict.logisMod <- function(object, new_data, ...){
+  stats::predict.glm(object, newdata = new_data, type = "response")
 }
