@@ -1,6 +1,6 @@
-expectedSet <- list(numeric(0), 1, 2, 3, c(1, 2), c(1, 3), c(2, 3), c(1, 2, 3))
-
 test_that("creating combinations works", {
+  expectedSet <- list(numeric(0), 1, 2, 3, c(1, 2), c(1, 3), c(2, 3), c(1, 2, 3))
+  
   expect_setequal(.getAllCombination(c(1, 2, 3)), expectedSet)
   expect_setequal(.getAllCombination(1), list(integer(0), 1))
 })
