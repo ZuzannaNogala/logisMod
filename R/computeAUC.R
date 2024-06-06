@@ -5,19 +5,30 @@
 #' denotes better model performance. If AUC equals 0.5, the model is random 
 #' classiffier. It means the model randomly decides that if event is success or not.
 #' 
-#' @param model glm.object, logistic model
 #' @param strNameY characteristic, name of dependent variable which takes values
 #' 0 and 1
+#' @param model1 glm.object, logistic model
+#' @param ... addiction logistic models; theirs AUC will be compare with the AUC for the 
+#' model1 
 #' 
-#' @return numeric from 0 to 1, represents area under ROC curve
+#' @return numeric from 0 to 1, represents area under ROC curve for each model
 #' 
 #' @importFrom pROC roc
 #' 
 #' @examples
-#' model <- glm(nameBin ~ diameter + green + blue, data = citrus, family = binomial("logit"))
-#' computeAUC(model, "nameBin")
+#' model1 <- logisMod(nameBin ~ diameter + blue + red, data = citrus)
+#' model2 <- logisMod(nameBin ~ weight + green + red, data = citrus)
+#' 
+#' computeAUC("nameBin", model1, model2)
 #' @export
-computeAUC <- function(model, strNameY){
-  roc_model <- pROC::roc(model$data[, get(strNameY)], model$fitted.values)
-  head(roc_model$auc)
+computeAUC <- function(strNameY, model1, ...){
+  list_of_models <- list(model1, ...)
+  names(list_of_models) <- paste0("model", 1:length(list_of_models))
+  
+  auc_for_models <- lapply(list_of_models, function(model){
+    roc_stats <- pROC::roc(model$data[, get(strNameY)], model$fitted.values)
+    head(roc_stats$auc)
+  })
+  
+  data.table("model" = names(list_of_models), "AUC" = auc_for_models)
 }

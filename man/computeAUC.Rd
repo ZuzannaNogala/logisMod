@@ -4,16 +4,19 @@
 \alias{computeAUC}
 \title{Computing AUC}
 \usage{
-computeAUC(model, strNameY)
+computeAUC(strNameY, model1, ...)
 }
 \arguments{
-\item{model}{glm.object, logistic model}
-
 \item{strNameY}{characteristic, name of dependent variable which takes values
 0 and 1}
+
+\item{model1}{glm.object, logistic model}
+
+\item{...}{addiction logistic models; theirs AUC will be compare with the AUC for the
+model1}
 }
 \value{
-numeric from 0 to 1, represents area under ROC curve
+numeric from 0 to 1, represents area under ROC curve for each model
 }
 \description{
 function finds the Area Under the Receiver Operating Characterisric
@@ -22,6 +25,8 @@ denotes better model performance. If AUC equals 0.5, the model is random
 classiffier. It means the model randomly decides that if event is success or not.
 }
 \examples{
-model <- glm(nameBin ~ diameter + green + blue, data = citrus, family = binomial("logit"))
-computeAUC(model, "nameBin")
+model1 <- logisMod(nameBin ~ diameter + blue + red, data = citrus)
+model2 <- logisMod(nameBin ~ weight + green + red, data = citrus)
+
+computeAUC("nameBin", model1, model2)
 }

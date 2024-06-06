@@ -61,9 +61,9 @@
 #' @returns one plot represents ROC curves for each model
 #' 
 #' @examples
-#' model1 <- glm(nameBin ~ diameter + blue + red, data = citrus, family = binomial("logit"))
-#' model2 <-  glm(nameBin ~ diameter, data = citrus, family = binomial("logit"))
-#' model3 <- glm(nameBin ~ weight + green, data = citrus, family = binomial("logit"))
+#' model1 <- logisMod(nameBin ~ diameter + blue + red, data = citrus)
+#' model2 <- logisMod(nameBin ~ diameter, data = citrus)
+#' model3 <- logisMod(nameBin ~ weight + green, data = citrus)
 #' 
 #' drawROCsForEachModel(seq(0, 1, by = 0.05), "nameBin", model1, model2, model3) 
 #' @export
