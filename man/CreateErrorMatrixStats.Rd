@@ -4,19 +4,22 @@
 \alias{CreateErrorMatrixStats}
 \title{Create the Confusion / Error Matrix}
 \usage{
-CreateErrorMatrixStats(thres_prob, resp_pred_vec, Y_vec)
+CreateErrorMatrixStats(thres_prob, Y_vec, model1, ...)
 }
 \arguments{
 \item{thres_prob}{numeric from 0 to 1, threshold of success' probability - if predicted
 probability of dependent variable is higher than treshold, the event is counted as a success}
 
-\item{resp_pred_vec}{numeric vector of transformed predictions (by inverse link function) of dependent variable
-from data set; output of function resp_prediction_for_model()}
-
 \item{Y_vec}{dependent variable Y which takes the values 0 and 1}
+
+\item{model1}{a fitted object of class inheriting from "logisMod"}
+
+\item{...}{addiction objects of class" logisMod"; theirs ROC curves will be compare with the curve of
+model1}
 }
 \value{
-list with Error Matrix, Accuracy of model, Sensitivity and Specificity.
+list with Error Matrix, Accuracy of model, Sensitivity and Specificity for each
+vector of transformed model's predictions (for each regression )
 }
 \description{
 function returns list which cointains Confussion / Error Matrix (i.e sum of: True Positives (TP),
@@ -24,9 +27,10 @@ False Positives (FP), True Negative (TN), False Negative (FN)), Accuracy of mode
 Sensitivity and Specificity.
 }
 \examples{
-mdl <- glm(nameBin ~ diameter + green + blue, data = citrus, family = binomial("logit"))
+model1 <- createModels(citrus, nameBin ~ diameter + green + blue)
+model2 <- createModels(citrus, nameBin ~ diameter + red + blue + green)
 p <- 0.6
 
-resp_prediction_vec <- resp_prediction_for_model(mdl)
-CreateErrorMatrixStats(p, resp_prediction_vec, mdl$data$nameBin)
+CreateErrorMatrixStats(p, citrus$nameBin, model1, model2)
+
 }

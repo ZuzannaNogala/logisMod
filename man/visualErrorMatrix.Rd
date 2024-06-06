@@ -4,27 +4,26 @@
 \alias{visualErrorMatrix}
 \title{Visualization of Confusion / Error Matrix}
 \usage{
-visualErrorMatrix(thres_prob, resp_pred_vec, Y_vec)
+visualErrorMatrix(thres_prob, Y_vec, model)
 }
 \arguments{
 \item{thres_prob}{numeric from 0 to 1, threshold of success' probability - if predicted
 probability of dependent variable is higher than treshold, the event is counted as a success}
 
-\item{resp_pred_vec}{numeric vector of transformed predictions (by inverse link function) of dependent variable
-from data set; output of function resp_prediction_for_model()}
-
 \item{Y_vec}{dependent variable Y which takes the values 0 and 1}
+
+\item{model}{a fitted object of class inheriting from "logisMod"}
 }
 \value{
-plot which represents Confusion / Error Matrix
+plot which represents Confusion / Error Matrix for model
 }
 \description{
 function displays Confusion / Error Matrix.
 }
 \examples{
-mdl <- glm(nameBin ~ diameter + green + blue, data = citrus, family = binomial("logit"))
+model <- createModels(nameBin ~ diameter + green + blue, data = citrus)
 p <- 0.6
 
-resp_prediction_vec <- resp_prediction_for_model(mdl)
-visualErrorMatrix(p, resp_prediction_vec, mdl$data$nameBin)
+visualErrorMatrix(p, citrus$nameBin, model)
+
 }

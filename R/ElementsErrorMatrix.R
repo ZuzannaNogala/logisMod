@@ -91,40 +91,66 @@
 #' 
 #' @param thres_prob numeric from 0 to 1, threshold of success' probability - if predicted
 #' probability of dependent variable is higher than treshold, the event is counted as a success
-#' @param resp_pred_vec numeric vector of transformed predictions (by inverse link function) of dependent variable
-#' from data set; output of function resp_prediction_for_model()
 #' @param Y_vec dependent variable Y which takes the values 0 and 1
+#' @param model1 a fitted object of class inheriting from "logisMod"
+#' @param ... addiction objects of class" logisMod"; theirs ROC curves will be compare with the curve of 
+#' model1 
 #' 
-#' @importFrom stats glm
-#' 
-#' @return list with Error Matrix, Accuracy of model, Sensitivity and Specificity.
+#' @return list with Error Matrix, Accuracy of model, Sensitivity and Specificity for each
+#' vector of transformed model's predictions (for each regression )
 #' @examples
-#' mdl <- glm(nameBin ~ diameter + green + blue, data = citrus, family = binomial("logit"))
+#' model1 <- createModels(citrus, nameBin ~ diameter + green + blue)
+#' model2 <- createModels(citrus, nameBin ~ diameter + red + blue + green)
 #' p <- 0.6
 #' 
-#' resp_prediction_vec <- resp_prediction_for_model(mdl)
-#' CreateErrorMatrixStats(p, resp_prediction_vec, mdl$data$nameBin)
+#' CreateErrorMatrixStats(p, citrus$nameBin, model1, model2)
+#' 
 #' @export
-CreateErrorMatrixStats <- function(thres_prob, resp_pred_vec, Y_vec){
-  TP <- .True_Positive(thres_prob, resp_pred_vec, Y_vec) 
-  FN <- .False_Negative(thres_prob, resp_pred_vec, Y_vec)
-  FP <- .False_Positive(thres_prob, resp_pred_vec, Y_vec)
-  TN <- .True_Negative(thres_prob, resp_pred_vec, Y_vec)
+CreateErrorMatrixStats <- function(thres_prob, Y_vec, model1, ...){
+  list_of_models <- list(model1, ...)
+  list_of_response_prediction <- lapply(list_of_models, function(model) predictBasedData(model1, citrus))
   
-  ErrorMatrix <- data.table(" " = c("actual_T", "actual_N"),
-                            "pred_T" = c(TP, FP),
-                            "pred_N" = c(FN, TN))
+  elementsErrorMatrix_list <- lapply(list_of_response_prediction, function(pred_vec){
+    TP <- .True_Positive(thres_prob, pred_vec, Y_vec) 
+    FN <- .False_Negative(thres_prob, pred_vec, Y_vec)
+    FP <- .False_Positive(thres_prob, pred_vec, Y_vec)
+    TN <- .True_Negative(thres_prob, pred_vec, Y_vec) 
+    
+    list("TP" = TP, "FN" = FN, "FP" = FP, "TN" = TN)
+  })
   
-  Accuracy <- (TP + TN) / (TP + TN + FP + FN)
   
-  Sensitivity <- TP / (TP + FP)
+  Stats_list <- lapply(elementsErrorMatrix_list, function(lst){
+    ErrorMatrix <- data.frame("pred_T" = c(lst$TP, lst$FP),
+                              "pred_N" = c(lst$FN, lst$TN))
+    
+    rownames(ErrorMatrix) <- c("actual_T", "actual_N")
+    
+    Accuracy <- (lst$TP + lst$TN) / (do.call(sum, lst))
+    
+    Sensitivity <- lst$TP / (lst$TP + lst$FP)
+    
+    Specificity  <- lst$TN / (lst$FP + lst$TN)
+    
+    list("ErrorMatrix" = ErrorMatrix, 
+         "Accuracy" = Accuracy, 
+         "Sensitivity" = Sensitivity,
+         "Specificity" = Specificity)
+  })
   
-  Specificity  <- TN / (FP + TN)
+  names(Stats_list) <- paste0("model", 1:length(list_of_models))
   
-  list("ErrorMatrix" = ErrorMatrix, 
-       "Accuracy" = Accuracy, 
-       "Sensitivity" = Sensitivity,
-       "Specificity" = Specificity)
+  if(length(list_of_models) == 1) return(Stats_list[[1]])
+  else{
+    Stats_list_transpose <- list(lapply(Stats_list, function(lst) lst$ErrorMatrix),
+                                 lapply(Stats_list, function(lst) lst$Accuracy),
+                                 lapply(Stats_list, function(lst) lst$Sensitivity),
+                                 lapply(Stats_list, function(lst) lst$Specificity))
+    
+    names(Stats_list_transpose) <- c("ErrorMatrix", "Accuracy", "Sensitivity", "Specificity")
+    Stats_list_transpose
+  }
+  
 }
 
 #' Visualization of Confusion / Error Matrix
@@ -133,27 +159,27 @@ CreateErrorMatrixStats <- function(thres_prob, resp_pred_vec, Y_vec){
 #' 
 #' @param thres_prob numeric from 0 to 1, threshold of success' probability - if predicted
 #' probability of dependent variable is higher than treshold, the event is counted as a success
-#' @param resp_pred_vec numeric vector of transformed predictions (by inverse link function) of dependent variable
-#' from data set; output of function resp_prediction_for_model()
 #' @param Y_vec dependent variable Y which takes the values 0 and 1
+#' @param model a fitted object of class inheriting from "logisMod"
 #' 
 #' @import ggplot2
 #' 
-#' @return plot which represents Confusion / Error Matrix
+#' @return plot which represents Confusion / Error Matrix for model
 #' @examples
-#' mdl <- glm(nameBin ~ diameter + green + blue, data = citrus, family = binomial("logit"))
+#' model <- createModels(nameBin ~ diameter + green + blue, data = citrus)
 #' p <- 0.6
 #' 
-#' resp_prediction_vec <- resp_prediction_for_model(mdl)
-#' visualErrorMatrix(p, resp_prediction_vec, mdl$data$nameBin)
+#' visualErrorMatrix(p, citrus$nameBin, model)
+#' 
 #' @export
-visualErrorMatrix <- function(thres_prob, resp_pred_vec, Y_vec){
-  EMStats <- CreateErrorMatrixStats(thres_prob, resp_pred_vec, Y_vec)
-  meltedEroorMatrix <- melt(EMStats$ErrorMatrix, id.vars = c(" "))
+visualErrorMatrix <- function(thres_prob, Y_vec, model){
+  EMStats <- CreateErrorMatrixStats(thres_prob, Y_vec, model)
+  ErrorMatrix <- cbind(" " = rownames(EMStats$ErrorMatrix), as.data.table(EMStats$ErrorMatrix))
+  meltedErrorMatrix <- melt(ErrorMatrix, id.vars = c(" "))
   
-  ggplot(data =  meltedEroorMatrix, mapping = aes(x = variable, y = ` `)) +
+  ggplot(data =  meltedErrorMatrix, mapping = aes(x = variable, y = ` `)) +
     geom_tile(aes(fill = value), colour = "white") +
-    geom_text(aes(label = sprintf("%1.0f", value)), vjust = 1) +
+    geom_text(aes(label = value), vjust = 1) +
     scale_fill_gradient(low = "#DF9C75", high = "#00C1B2") +
     labs(x = " ") +
     scale_x_discrete(labels = c('Predicted Positive', 'Predicted Negative')) +
@@ -161,4 +187,6 @@ visualErrorMatrix <- function(thres_prob, resp_pred_vec, Y_vec){
     theme_minimal() + 
     theme(legend.position = "none",
           line = element_blank())
+  
 }
+
