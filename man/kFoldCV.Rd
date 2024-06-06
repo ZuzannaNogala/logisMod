@@ -4,7 +4,7 @@
 \alias{kFoldCV}
 \title{K-Fold Cross Validation}
 \usage{
-kFoldCV(data, K, threshold, strNameY, pred)
+kFoldCV(data, K, threshold, strNameY, pred, fun = ".acc", ...)
 }
 \arguments{
 \item{data}{data.table, set of data we want apply logistic regresion to}
@@ -19,9 +19,13 @@ event is counted as a success, if vector then for each accuracy score is compute
 
 \item{pred}{character vector, vector of predictors' names,
 must be columns of \code{data}}
+
+\item{fun}{function name as character, to use for comparison, as}
+
+\item{...}{addictional \code{fun} paramteres, with names}
 }
 \value{
-data.table with choosen threshold and its accuracy score
+data.table with choosen threshold and its accuracy score (by default), or mean from result of another function
 }
 \description{
 Implementation of K-Fold Cross Validation technique for logistic regression.
@@ -29,7 +33,9 @@ In this technique, the parameter K refers to the number of different subsets
 that the given data set is to be split into. Further, K-1 subsets are used
 to train the model and the left out subsets are used as a validation set. For
 each subset we count accuracy, then we get accuracy score by applying mean
-to all the accuracies received for all folds.
+to all the accuracies received for all folds (by default). It is also possible
+to add another function with paraeters describing true values, predicted values and
+number of observations. Then mean of results from each iteration is computed.
 }
 \examples{
 kFoldCV(citrus, 4, 0.5, "nameBin", c("red", "blue"))

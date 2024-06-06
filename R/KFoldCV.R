@@ -39,7 +39,9 @@
 #' that the given data set is to be split into. Further, K-1 subsets are used 
 #' to train the model and the left out subsets are used as a validation set. For
 #' each subset we count accuracy, then we get accuracy score by applying mean 
-#' to all the accuracies received for all folds.
+#' to all the accuracies received for all folds (by default). It is also possible
+#' to add another function with paraeters describing true values, predicted values and
+#' number of observations. Then mean of results from each iteration is computed.
 #' 
 #' @param data data.table, set of data we want apply logistic regresion to
 #' @param K integer, number of folds
@@ -49,8 +51,10 @@
 #' @param strNameY character, name of dependent variable Y which takes the values 0 and 1
 #' @param pred character vector, vector of predictors' names, 
 #' must be columns of \code{data}
+#' @param fun function name as character, to use for comparison, as 
+#' @param ... addictional \code{fun} paramteres, with names
 #' 
-#' @return data.table with choosen threshold and its accuracy score
+#' @return data.table with choosen threshold and its accuracy score (by default), or mean from result of another function
 #' 
 #' @import data.table
 #' @importFrom stats glm
@@ -60,7 +64,7 @@
 #' kFoldCV(citrus, 4, c(0.1, 0.5), "nameBin", c("red", "blue"))
 #' 
 #' @export
-kFoldCV <- function(data, K, threshold, strNameY, pred){
+kFoldCV <- function(data, K, threshold, strNameY, pred, fun = ".acc", ...){
   
   if(!is.numeric(threshold)){
     stop("Threshold must be numeric!")
@@ -88,13 +92,28 @@ kFoldCV <- function(data, K, threshold, strNameY, pred){
       prediction <- predict.glm(model, test, type = "response")
       prediction <- ifelse(prediction > t, 1, 0)
       
-      acc <- sum(trueValues == prediction) / sizeTest
+      args <- list(trueValues, prediction, sizeTest, ...)
+      acc <- do.call(fun, args)
       acc
     })
     
-    list("threshold" = t, 
-         "accScore" = mean(unlist(calc)))
+    miniResult <- list(t, mean(unlist(calc)))
+    names(miniResult) <- c("threshold", fun)
+    miniResult
   })
   
   rbindlist(result)
+}
+
+#' Accuracy function
+#' 
+#' @param true numeric vector, true values of Y
+#' @param predicted numeric vector, predicted values of Y
+#' @param n size of sample
+#' 
+#' @return accuracy, numeric
+#' 
+#' @keywords internal
+.acc <- function(true, predicted, n){
+  sum(true == predicted) / n
 }
