@@ -51,8 +51,8 @@
 #' event is counted as a success
 #' @param strNameY characteristic, name of dependent variable which takes values
 #' 0 and 1
-#' @param model1 object glm, logistic model
-#' @param ... addiction logistic models; theirs ROC curves will be compare with the curve for the 
+#' @param model1 a fitted object of class inheriting from "createModels"
+#' @param ... addiction objects of class" logisMod"; theirs ROC curves will be compare with the curve for the 
 #' model1 
 #' 
 #' @import ggplot2
@@ -61,11 +61,12 @@
 #' @returns one plot represents ROC curves for each model
 #' 
 #' @examples
-#' model1 <- logisMod(nameBin ~ diameter + blue + red, data = citrus)
-#' model2 <- logisMod(nameBin ~ diameter, data = citrus)
-#' model3 <- logisMod(nameBin ~ weight + green, data = citrus)
+#' model1 <- createModels(citrus, nameBin ~ diameter + blue + red)
+#' model2 <- createModels(citrus, nameBin ~ diameter)
+#' model3 <- createModels(citrus, nameBin ~ weight + green)
 #' 
 #' drawROCsForEachModel(seq(0, 1, by = 0.05), "nameBin", model1, model2, model3) 
+#' 
 #' @export
 drawROCsForEachModel <- function(threshold_sequance, strNameY, model1, ...){
   list_of_models <- list(model1, ...)

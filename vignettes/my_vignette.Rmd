@@ -51,7 +51,11 @@ p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin",
 ```
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "/". 
+=======
+Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "-", "/". 
+>>>>>>> vignitte changes
 =======
 Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "-", "/". 
 >>>>>>> vignitte changes
@@ -78,6 +82,7 @@ corrHeatmap(citrus, vars)
 
 ## 2.Build the model
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 Firstly we want to build model with all of the variables. The user can build a model using `logisMod()` method. 
 
@@ -133,11 +138,40 @@ Crit_dt[union(which.min(AIC), which.min(BIC)), ]
 However, the criterias is good for small amount of predictors. For big set of regressors, the amount of models the method should check is growing and that's not optimal.
 
 ## 4. Deviance test
+=======
+The user can build a model using `logisMod()` method.
+
+```{r}
+model <- logisMod(formula = nameBin ~ diameter + red + green + blue, data = citrus)
+```
+
+## 3. Choose the model
+
+### 3.1 Comparing informative criterias 
+
+In our package there are few method to help the user choose a model. Firsty, method `countInfCrit()` computes values of criterias AIC and BIC for every possible set of predictors given by user.
+
+```{r}
+Crit_dt <- countInfCrit(data = citrus, str = "nameBin", vars)
+head(Crit_dt)
+```
+
+According to criterias, the best model is the one with the smallest value of AIC and BIC.
+
+```{r, echo=FALSE}
+Crit_dt[union(which.min(AIC), which.min(BIC)), ]
+```
+
+However, the criterias is good for small amount of predictors. For big set of regressors, the amount of models the method should check is growing and that's not optimal.
+
+### 3.2 Deviance test
+>>>>>>> vignitte changes
 
 Another method to testing model is deviance Goodness-of-fit test named `deviance_test()`. Consider the testing problem:
 
 $$H_0: \forall_{i \in I} \ \ \beta_i = 0 \ \ \ \textrm{against} \ \ \ H_1: \exists_{i \in I} \ \ \beta_i \neq 0,$$
 where $I$ is a set of predictors' indexes. 
+<<<<<<< HEAD
 
 For example, test the significance of `red, green, blue` predictors. The model from alternative (`model_H1`) is "full model". Its regressors are the tested predictors and addition one (let's take model `nameBin ~  diameter + weight + red + green + blue`). On the other hand, the model from null hipothesis  (`model_H0`) is a "full model" without tested predictors (`nameBin ~  diameter + weight`).
 
@@ -232,6 +266,9 @@ Another method to testing model is deviance Goodness-of-fit test named `deviance
 $$H_0: \forall_{i \in I} \ \ \beta_i = 0 \ \ \ \textrm{against} \ \ \ H_1: \exists_{i \in I} \ \ \beta_i \neq 0,$$
 where $I$ is a set of predictors' indexes. 
 
+=======
+
+>>>>>>> vignitte changes
 For example, test the significance of `red, green, blue` predictors. The model from alternative (`model_H1`) is "full model". Its regressors are the tested predictors and addition one (let's take model `nameBin ~  diameter + weight + red + green + blue`). On the other hand, the model from null hipothesis  (`model_H0`) is a "full model" without tested predictors (`nameBin ~  diameter + weight`).
 
 The null hipothesis is recjeted when the value of `Deviance_statistic` is greater than `Critical_value`, which is a $1 - \alpha$ quantile from distribiution $\chi^2(|I|)$ or the `p_value` is smaller than $\alpha$.
@@ -253,5 +290,8 @@ computeAUC(logisMod(nameBin ~ diameter + weight + red + green + blue, data = cit
 
 ```{r}
 # drawROC()
+<<<<<<< HEAD
+>>>>>>> vignitte changes
+=======
 >>>>>>> vignitte changes
 ```
