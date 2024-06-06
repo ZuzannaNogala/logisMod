@@ -10,9 +10,9 @@ computeAUC(strNameY, model1, ...)
 \item{strNameY}{characteristic, name of dependent variable which takes values
 0 and 1}
 
-\item{model1}{glm.object, logistic model}
+\item{model1}{a fitted object of class inheriting from "logisMod"}
 
-\item{...}{addiction logistic models; theirs AUC will be compare with the AUC for the
+\item{...}{addiction object of class "logisMod"; theirs AUC will be compare with the AUC for the
 model1}
 }
 \value{
@@ -25,8 +25,9 @@ denotes better model performance. If AUC equals 0.5, the model is random
 classiffier. It means the model randomly decides that if event is success or not.
 }
 \examples{
-model1 <- logisMod(nameBin ~ diameter + blue + red, data = citrus)
-model2 <- logisMod(nameBin ~ weight + green + red, data = citrus)
+model1 <- createModels(citrus, nameBin ~ diameter + blue + red)
+model2 <- createModels(citrus, nameBin ~ weight + green + red)
 
 computeAUC("nameBin", model1, model2)
+
 }

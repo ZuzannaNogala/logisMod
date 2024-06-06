@@ -7,8 +7,8 @@
 #' 
 #' @param strNameY characteristic, name of dependent variable which takes values
 #' 0 and 1
-#' @param model1 glm.object, logistic model
-#' @param ... addiction logistic models; theirs AUC will be compare with the AUC for the 
+#' @param model1 a fitted object of class inheriting from "logisMod"
+#' @param ... addiction object of class "logisMod"; theirs AUC will be compare with the AUC for the 
 #' model1 
 #' 
 #' @return numeric from 0 to 1, represents area under ROC curve for each model
@@ -16,10 +16,11 @@
 #' @importFrom pROC roc
 #' 
 #' @examples
-#' model1 <- logisMod(nameBin ~ diameter + blue + red, data = citrus)
-#' model2 <- logisMod(nameBin ~ weight + green + red, data = citrus)
+#' model1 <- createModels(citrus, nameBin ~ diameter + blue + red)
+#' model2 <- createModels(citrus, nameBin ~ weight + green + red)
 #' 
 #' computeAUC("nameBin", model1, model2)
+#' 
 #' @export
 computeAUC <- function(strNameY, model1, ...){
   list_of_models <- list(model1, ...)
