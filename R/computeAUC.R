@@ -14,6 +14,7 @@
 #' @return numeric from 0 to 1, represents area under ROC curve for each model
 #' 
 #' @importFrom pROC roc
+#' @importFrom utils head
 #' 
 #' @examples
 #' model1 <- createModels(citrus, nameBin ~ diameter + blue + red)
