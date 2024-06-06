@@ -3,11 +3,11 @@
 #' function returns deviance test summary to verify null hypothesis H0: predictors
 #' from set A is insignificant vs alternative H1: significant predictor exists in set A (full model)
 #' 
-#' @param model_H0 glm object, logistic model from null hypothesis (models with less 
-#' predictors are supported) 
-#' @param model_H1 glm object, logistic model from alternative hypothesis (models with more 
-#' predictors are supported)
-#' @param alpha numeric,significance level of test
+#' @param model_H0a fitted object of class inheriting from "logisMod" from null 
+#' hypothesis (models with less predictors are supported) 
+#' @param model_H1a fitted object of class inheriting from "logisMod" from 
+#' alternative hypothesis (models with more predictors are supported)
+#' @param alpha numeric, significance level of test
 #' 
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq
@@ -18,12 +18,11 @@
 #' degrees of freedom, critical value of deviance statistic and p value. 
 #' 
 #' @examples
-#' mdl_full <- glm(nameBin ~ diameter + green + blue + weight, 
-#'                  data = citrus, family = binomial("logit"))
-#' mdl_unfull <- glm(nameBin ~ weight + green, 
-#'                  data = citrus, family = binomial("logit"))
+#' model_full <- createModels(citrus, nameBin ~ diameter + green + blue + weight)
+#' model_unfull <- createModels(citrus, nameBin ~ weight + green)
 #'                  
-#' deviance_test(model_H0 = mdl_unfull, model_H1 = mdl_full, alpha = 0.1)
+#' deviance_test(model_H0 = model_unfull, model_H1 = model_full, alpha = 0.1)
+#' 
 #' @export
 deviance_test <- function(model_H0, model_H1, alpha = 0.05){
   deviance_stat <- head(- 2 * (logLik(model_H0) - logLik(model_H1)))
