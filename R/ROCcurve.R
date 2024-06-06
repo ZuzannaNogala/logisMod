@@ -42,45 +42,54 @@
 #' The ROC curve visualization
 #' 
 #' A receiver operating characteristic curve (ROC curve) is a graphical plot which
-#' illustrates the performance of a binary classifier model for diffrent choices of 
+#' illustrates the performance of a binary classifier model for different choices of 
 #' threshold of success' probability. Each point on curve represents False Positive 
 #' Rate (FPR) against True Positive Rate (TPR) at each threshold setting. 
 #' 
 #' @param threshold_sequance sequance of numeric values from 0 to 1, thresholds 
 #' of success' probability - if predicted probability of dependent variable is higher than treshold, the 
 #' event is counted as a success
-#' @param model object glm, logistic model
 #' @param strNameY characteristic, name of dependent variable which takes values
 #' 0 and 1
+#' @param model1 object glm, logistic model
+#' @param ... addiction logistic models; theirs ROC curves will be compare with the curve for the 
+#' model1 
 #' 
 #' @import ggplot2
 #' @import data.table
 #' 
-#' @returns plot represents ROC curve
+#' @returns one plot represents ROC curves for each model
 #' 
 #' @examples
-#' model <- glm(nameBin ~ diameter + blue + red, data = citrus, family = binomial("logit"))
-#' drawROC(seq(0, 1, by = 0.01), model, "nameBin") 
+#' model1 <- glm(nameBin ~ diameter + blue + red, data = citrus, family = binomial("logit"))
+#' model2 <-  glm(nameBin ~ diameter, data = citrus, family = binomial("logit"))
+#' model3 <- glm(nameBin ~ weight + green, data = citrus, family = binomial("logit"))
+#' 
+#' drawROCsForEachModel(seq(0, 1, by = 0.05), "nameBin", model1, model2, model3) 
 #' @export
-drawROC <- function(threshold_sequance, model, strNameY){
-  roc_points_list <- .findPointsOnTheROC(threshold_sequance, model, strNameY)
-  roc_points_dt <- transpose(as.data.table(roc_points_list))
-  names(roc_points_dt) <- c("FPR", "TPR")
+drawROCsForEachModel <- function(threshold_sequance, strNameY, model1, ...){
+  list_of_models <- list(model1, ...)
   
-  visual_dt <- data.table("x" = c(threshold_sequance, roc_points_dt$FPR),
-                          "y" = c(threshold_sequance, roc_points_dt$TPR),
-                          "type" = c(rep("random classiffier", length(threshold_sequance)), 
-                                     rep("ROC curve of model", length(threshold_sequance))))
+  roc_points_list <- lapply(list_of_models, function(model) .findPointsOnTheROC(threshold_sequance, model, strNameY))
+  roc_points_dt_list <- lapply(roc_points_list, function(lst){
+    roc_points_dt <- transpose(as.data.table(lst))
+    names(roc_points_dt) <- c("FPR", "TPR")
+    roc_points_dt
+  }) 
+  
+  types_names <- rep(c("random classiffier" ,paste("model", 1:length(list_of_models))), 
+                     each = length(threshold_sequance))
+  
+  visual_dt <- data.table(x = c(threshold_sequance, unlist(lapply(roc_points_dt_list, function(lst) lst$FPR))),
+                          y = c(threshold_sequance, unlist(lapply(roc_points_dt_list, function(lst) lst$TPR))),
+                          type = types_names)
   
   ggplot() +
-    geom_point(data=visual_dt[type == "ROC curve of model", ], aes(x, y), size = 0.9, alpha = 0.5) +
+    geom_point(data=visual_dt[type != "random classiffier", ], aes(x, y, col = type), size = 0.9, alpha = 0.5) +
     geom_path(data=visual_dt, aes(x, y, group = type, col = type), linewidth = 0.6) +
     labs(title= paste0("ROC curve"), 
          x = "False Positive Rate",
          y = "True Positive Rate")+ 
-    theme_bw() +
-    scale_color_manual(values = c("red", "#2574A9")) +
-    annotate(geom="text", label = paste("AUC - ", round(computeAUC(model, strNameY), digits = 3)),
-             x=0.9, y=0.05, size = 4)
-  
+    theme_bw()+
+    scale_color_brewer(palette = "Set1")
 }

@@ -50,7 +50,11 @@ p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin",
                      str_name_X = "weight", plot_title = "weight vs nameBin")
 ```
 
+<<<<<<< HEAD
 Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "/". 
+=======
+Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "-", "/". 
+>>>>>>> vignitte changes
 
 ```{r, echo=TRUE,  fig.width=5, fig.height=4, fig.align='center'}
 p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", 
@@ -74,6 +78,7 @@ corrHeatmap(citrus, vars)
 
 ## 2.Build the model
 
+<<<<<<< HEAD
 Firstly we want to build model with all of the variables. The user can build a model using `logisMod()` method. 
 
 ```{r}
@@ -93,15 +98,23 @@ dwModel <- logisMod(nameBin ~ diameter + weight, citrus)
 summary(dwModel)
 ```
 
+=======
+>>>>>>> vignitte changes
 The user can build a model using `logisMod()` method.
 
 ```{r}
 model <- logisMod(formula = nameBin ~ diameter + red + green + blue, data = citrus)
 ```
 
+<<<<<<< HEAD
 ## 3. Comparing informative criterias 
 
 One of the most important features of this package is possibility to compare all possible models for given vector of variables. It works with character vector of names of variables.
+=======
+## 3. Choose the model
+
+### 3.1 Comparing informative criterias 
+>>>>>>> vignitte changes
 
 In our package there are few method to help the user choose a model. Firsty, method `countInfCrit()` computes values of criterias AIC and BIC for every possible set of predictors given by user.
 
@@ -114,6 +127,7 @@ According to criterias, the best model is the one with the smallest value of AIC
 
 ```{r, echo=FALSE}
 Crit_dt[union(which.min(AIC), which.min(BIC)), ]
+<<<<<<< HEAD
 ```
 
 However, the criterias is good for small amount of predictors. For big set of regressors, the amount of models the method should check is growing and that's not optimal.
@@ -206,4 +220,38 @@ newData[["red"]] <- seq(min(predData), max(predData), 0.1)
 newData <- as.data.table(newData)
 
 predictNew(model, newData)
+=======
+```
+
+However, the criterias is good for small amount of predictors. For big set of regressors, the amount of models the method should check is growing and that's not optimal.
+
+### 3.2 Deviance test
+
+Another method to testing model is deviance Goodness-of-fit test named `deviance_test()`. Consider the testing problem:
+
+$$H_0: \forall_{i \in I} \ \ \beta_i = 0 \ \ \ \textrm{against} \ \ \ H_1: \exists_{i \in I} \ \ \beta_i \neq 0,$$
+where $I$ is a set of predictors' indexes. 
+
+For example, test the significance of `red, green, blue` predictors. The model from alternative (`model_H1`) is "full model". Its regressors are the tested predictors and addition one (let's take model `nameBin ~  diameter + weight + red + green + blue`). On the other hand, the model from null hipothesis  (`model_H0`) is a "full model" without tested predictors (`nameBin ~  diameter + weight`).
+
+The null hipothesis is recjeted when the value of `Deviance_statistic` is greater than `Critical_value`, which is a $1 - \alpha$ quantile from distribiution $\chi^2(|I|)$ or the `p_value` is smaller than $\alpha$.
+
+```{r}
+model_test <- logisMod(nameBin ~ diameter + weight, data = citrus)
+model_full <- logisMod(nameBin ~ diameter + weight + red + green + blue, data = citrus)
+
+deviance_test(model_H0 = model_test, model_H1 = model_full, alpha = 0.1)
+```
+
+### 3.3 ROC curve and AUC
+
+```{r}
+computeAUC(logisMod(nameBin ~ diameter + red + green + blue, data = citrus), "nameBin")
+computeAUC(logisMod(nameBin ~ weight + red + green + blue, data = citrus), "nameBin")
+computeAUC(logisMod(nameBin ~ diameter + weight + red + green + blue, data = citrus), "nameBin")
+```
+
+```{r}
+# drawROC()
+>>>>>>> vignitte changes
 ```
