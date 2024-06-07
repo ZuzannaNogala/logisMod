@@ -20,12 +20,12 @@ different version see \link[stats]{predict.glm}.
 }
 \examples{
 library(data.table)
-model <- logisMod(nameBin ~ red, citrus)
+model <- createModels(citrus, nameBin ~ red)
 predData <- citrus[["red"]]
 newData <- list()
 newData[["red"]] <- seq(min(predData), max(predData), 0.1)
 newData <- as.data.table(newData)
 
-predictBasedData(model, newData)
+predictBasedData(model[[1]], newData)
 
 }
