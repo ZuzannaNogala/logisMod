@@ -7,12 +7,12 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
+  
 # About 
-
+  
 The projektROR is a R package with useful tools to analyze data using logistic model. 
 
-Our package provides a method to build logistic regression based on user's data, which are `data.table` object. There are few methods to help user visualize data sets. The package cointent a boxplot method to show relationship between regresors and dependent variable. In addition user can see Correlation Heatmap. Fethermore user can compare models with implemented method of ROC curve with AUC or plot with fitted logit curve to data. Also package allows to compare regression with informative criterias like AIC, BIC and also by K-Fold Cross Validation. In addition, there is a method to computed all responese predictions for created model. 
+Our package provides a method to build logistic regression based on user's data, which are `data.table` object. There are few methods to help the user to visualize data sets. The package includes a boxplot method to show relationship between regressors and the dependent variable. In addition user can see Correlation Heatmap. Fethermore it is possible to compare models with implemented method of ROC curve with AUC or plot with fitted logit curve to data. Also package allows to compare regressions by informative criteria like AIC, BIC and also by K-Fold Cross Validation. In addition, there is a method to computed all responese predictions for created model's data or new one. 
 
 In our package there are two datasets `citrus` and`creditData`, which are `data.table` objects. Based of them, we will show the funtions in projektROR package.
 
@@ -50,7 +50,7 @@ p2 <- visual_boxplot(data = citrus, strNameY = "nameBin",
                      strNameX = "weight", plot_title = "weight vs nameBin")
 ```
 
-Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "-", "/". 
+Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "/". 
 
 ```{r, echo=TRUE,  fig.width=5, fig.height=4, fig.align='center'}
 p2 <- visual_boxplot(data = citrus, strNameY = "nameBin", 
@@ -80,7 +80,7 @@ Firstly we want to build model with all of the variables. The user can build a m
 allVarModel <- createModels(citrus, nameBin ~.)
 ```
 
-Thanks to it we can bulid multiple models at once, just by putting theirs formulas after commas. As a result, we always get a list of models (even if there is only one).
+Thanks to it we can build multiple models at once, just by putting theirs formulas after commas. As a result, we always get a list of models (even if there is only one).
 
 ```{r}
 fewModels <- createModels(citrus, nameBin ~ diameter, nameBin ~ weight, nameBin ~ red)
@@ -101,29 +101,29 @@ summary(dwModel[[1]])
 
 ## 3. Comparing informative criterias 
 
-In our package there are few method to help the user choose a model. Firsty, method `countInfCrit()` computes values of criterias AIC and BIC for every possible set of predictors given by user.
+In our package there are few method to help the user choose a model. Firsty, method `countInfCrit()` computes values of criteria AIC and BIC for every possible set of predictors given by the user.
 
 ```{r}
 Crit_dt <- countInfCrit(data = citrus, str = "nameBin", vars)
 head(Crit_dt)
 ```
 
-According to criterias, the best model is the one with the smallest value of AIC and BIC.
+According to criteria, the best model is the one with the smallest value of AIC and BIC.
 
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 Crit_dt[union(which.min(AIC), which.min(BIC)), ]
 ```
 
-However, the criterias is good for small amount of predictors. For big set of regressors, the amount of models the method should check is growing and that's not optimal.
+However, the criteria is good for small amount of predictors. For big set of regressors, the amount of models the method should check is growing and that's not optimal.
 
 ## 4. Deviance test
 
-Another method to testing model is deviance Goodness-of-fit test named `deviance_test()`. Consider the testing problem:
-
+Another method to testing model is deviance goodness-of-fit test named `deviance_test()`. Consider the testing problem:
+  
 $$H_0: \forall_{i \in I} \ \ \beta_i = 0 \ \ \ \textrm{against} \ \ \ H_1: \exists_{i \in I} \ \ \beta_i \neq 0,$$
 where $I$ is a set of predictors' indexes. 
 
-For example, test the significance of `red, green, blue` predictors. The model from alternative (`model_H1`) is "full model". Its regressors are the tested predictors and addition one (let's take model `nameBin ~  diameter + weight + red + green + blue`). On the other hand, the model from null hipothesis  (`model_H0`) is a "full model" without tested predictors (`nameBin ~  diameter + weight`).
+For example, let's test the significance of `red, green, blue` predictors. The model from alternative is "full model". Its regressors are the tested predictors and addition one (let's take model `nameBin ~  diameter + weight + red + green + blue`). On the other hand, the model from null hypothesis is a "unfull model" without tested predictors (`nameBin ~  diameter + weight`).
 
 The null hipothesis is recjeted when the value of `Deviance_statistic` is greater than `Critical_value`, which is a $1 - \alpha$ quantile from distribiution $\chi^2(|I|)$ or the `p_value` is smaller than $\alpha$.
 
@@ -134,30 +134,31 @@ model_test <- createModels(data = citrus, nameBin ~ diameter + weight,
 deviance_test(model_test, alpha = 0.1)
 ```
 
+`model_test` contains two models - one from null hypothesis and second from alternative. The order of adding models is not important.
+
 ### 5. ROC curve and AUC
 
-```{r}
-#computeAUC(logisMod(nameBin ~ diameter + red + green + blue, data = citrus), "nameBin")
-#computeAUC(logisMod(nameBin ~ weight + red + green + blue, data = citrus), "nameBin")
-#computeAUC(logisMod(nameBin ~ diameter + weight + red + green + blue, data = citrus), "nameBin")
-```
+A receiver operating characteristic curve (ROC curve) is a graphical plot which illustrates the performance of a binary classifier model for different choices of threshold of success' probability. Each point on curve represents False Positive Rate (FPR) against True Positive Rate (TPR) at each threshold setting. The AUC statistic (Area under curve) is used to compare ROC curves of different models. If AUC is closer to 1, the model performances better.
+                                                                                                     In package those statistic are implemented. The user can display ROC curve plot for many logistic regressions using `drawROCsForEachModel()` method and compare AUC thanks to `computeAUC()` method. Second method is fixed form of `pROC::roc` function, which is usable for many logistic models at once. For more details or different version see \link[pROC]{roc}
 
-```{r, fig.height=4, fig.width=7}
-thres_hold_seq <- seq(0,1, by = 0.05)
-
-drawROCsForEachModel(thres_hold_seq, "nameBin", createModels(citrus, nameBin ~ diameter + red + green + blue))
+```{r, fig.height=4, fig.width=7, echo=TRUE}
+thres_hold_seq <- seq(0, 1, by = 0.05)
+models_to_compare <- createModels(citrus, nameBin ~ diameter + red + green + blue,
+nameBin ~ red + green + blue,
+nameBin ~ diameter + weight + red + green + blue)
+                                                                                                     
+                                                                                                  computeAUC("nameBin", citrus, models_to_compare)
+                                                                                                    drawROCsForEachModel(thres_hold_seq, "nameBin", models_to_compare)
 ```
 
 ## 6. Plot response
 
 Above examples show that this data set may not be perfect for logistic regression, but we may try to use another function. Lets plot predicted probabilities for one-variable model (we include intercept).
-
-```{r, fig.height=4, fig.width=7}
+ 
+```{r, echo=TRUE, fig.height=4, fig.width=7}
 oneVarModel <- createModels(citrus, nameBin ~ red) 
 resPlot(oneVarModel[[1]])
 ```
-
-We don't have to create model to plot prediction. This function also works with data.table (or data.frame) and names of variables.
 
 ```{r, fig.height=4, fig.width=7}
 resPlot(citrus, "nameBin", "diameter")
@@ -194,7 +195,6 @@ mulKFCV[.acc == max(.acc)]
 
 We are creating models mostly beacuse we want to predict new values of dependent variable based on new observations. We provide function that can do this, it is fixed form of \code{stats::predict.glm}. For more details or different version see \link[stats]{predict.glm}.
 
-
 ```{r, eval=FALSE}
 library(data.table)
 model <- createModels(citrus, nameBin ~ red)
@@ -206,5 +206,22 @@ newData <- as.data.table(newData)
 predictBasedData(model[[1]], newData)
 ```
 
-However, the criterias is good for small amount of predictors. For big set of regressors, the amount of models the method should check is growing and that's not optimal.
+## 9. Confusion / Error Matrix
 
+Confusion / Error Matrix is table, which helps with visualization of model's performance. It contains values of True Positives, True Negative, False Positive and False Negatives. In package there is ` CreateErrorMatrixStats()` method, which returns the list with the Error Matrix, Accuracy, Specificity and Sensitivity of each model given by user in `models` argument. Beside this, in function there is `thres_prob` argument (threshold of success' probability) and `Y_vec` (values of dependent variable from model). They are useful to compute elements of Error matrix. 
+
+```{r, echo=TRUE}
+EMStats <- CreateErrorMatrixStats(thres_prob = 0.5, 
+                                  Y_vec = citrus$nameBin, 
+                                  models = models_to_compare)
+ 
+EMStats$ErrorMatrix
+EMStats$Specificity
+```
+
+Beside `data.frame` representation of Error Matrix, the user can display as an `ggplot2` object by using `visualErrorMatrix()` method. However, this function is usable for one model at once.
+
+```{r, fig.height=4, fig.width=7}
+visualErrorMatrix(thres_prob = 0.5, Y_vec = citrus$nameBin, model = models_to_compare[1])
+visualErrorMatrix(thres_prob = 0.5, Y_vec = citrus$nameBin, model = models_to_compare[2])
+```
