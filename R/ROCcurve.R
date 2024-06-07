@@ -29,7 +29,7 @@
   Fails <- data[get(strNameY) == 0, ..preds]
   Successes <- data[get(strNameY) == 1, ..preds]
   
-  resp_vec <- resp_prediction_for_model(model)
+  resp_vec <- predictBasedData(model, data)
   
   FP <- sapply(thresholds_sequance, 
                function(p) .False_Positive(p, resp_vec, data[, get(strNameY)]))
