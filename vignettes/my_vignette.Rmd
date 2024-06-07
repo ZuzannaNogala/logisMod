@@ -39,34 +39,28 @@ str(citrus)
 Firstly, let's create boxplots with using `visual_boxplot()` method. That's can help us to see relationship between features and `nameBin` variable, which we want to model.
 
 ```{r, echo = TRUE, fig.width=5, fig.height=4, fig.align='center'}
-p1 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X = "diameter")
+p1 <- visual_boxplot(data = citrus, strNameY = "nameBin", strNameX = "diameter")
 p1
 ```
 
 If the user wants change the title, it is possibility to change it in an function's argument `plot_title`. 
 
 ```{r, echo=TRUE,  fig.width=5, fig.height=4}
-p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", 
-                     str_name_X = "weight", plot_title = "weight vs nameBin")
+p2 <- visual_boxplot(data = citrus, strNameY = "nameBin", 
+                     strNameX = "weight", plot_title = "weight vs nameBin")
 ```
 
-<<<<<<< HEAD
-
 Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "-", "/". 
 
-=======
-Thanks to `patchwork` library, the plots can by display by using arithmetic operators like "+", "-", "/". 
-
->>>>>>> vignitte changes
 ```{r, echo=TRUE,  fig.width=5, fig.height=4, fig.align='center'}
-p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", 
-                     str_name_X = "weight", plot_title = "weight vs nameBin")
-p3 <-visual_boxplot(data = citrus, str_name_Y = "nameBin", 
-                    str_name_X = "red", plot_title = "red vs nameBin")
-p4 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", 
-                     str_name_X = "green", plot_title= "green vs nameBin")
-p5 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", 
-                     str_name_X = "blue", plot_title= "blue vs nameBin")
+p2 <- visual_boxplot(data = citrus, strNameY = "nameBin", 
+                     strNameX = "weight", plot_title = "weight vs nameBin")
+p3 <-visual_boxplot(data = citrus, strNameY = "nameBin", 
+                    strNameX = "red", plot_title = "red vs nameBin")
+p4 <- visual_boxplot(data = citrus, strNameY = "nameBin", 
+                     strNameX = "green", plot_title= "green vs nameBin")
+p5 <- visual_boxplot(data = citrus, strNameY = "nameBin", 
+                     strNameX = "blue", plot_title= "blue vs nameBin")
 
 (p2 +p3) / (p4 + p5)
 ```
@@ -80,8 +74,6 @@ corrHeatmap(citrus, vars)
 
 ## 2.Build the model
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 Firstly we want to build model with all of the variables. The user can build a model using `createModels()` method. 
 
 ```{r}
@@ -108,17 +100,6 @@ summary(dwModel[[1]])
 ```
 
 ## 3. Comparing informative criterias 
-=======
-The user can build a model using `logisMod()` method.
-
-```{r}
-model <- logisMod(formula = nameBin ~ diameter + red + green + blue, data = citrus)
-```
-
-## 3. Choose the model
-
-### 3.1 Comparing informative criterias 
->>>>>>> vignitte changes
 
 In our package there are few method to help the user choose a model. Firsty, method `countInfCrit()` computes values of criterias AIC and BIC for every possible set of predictors given by user.
 
@@ -131,7 +112,6 @@ According to criterias, the best model is the one with the smallest value of AIC
 
 ```{r, echo=FALSE}
 Crit_dt[union(which.min(AIC), which.min(BIC)), ]
-<<<<<<< HEAD
 ```
 
 However, the criterias is good for small amount of predictors. For big set of regressors, the amount of models the method should check is growing and that's not optimal.
@@ -149,9 +129,9 @@ The null hipothesis is recjeted when the value of `Deviance_statistic` is greate
 
 ```{r}
 model_test <- createModels(data = citrus, nameBin ~ diameter + weight, 
-                           nameBin ~ diameter + weight + red + green + blue )
+                           nameBin ~ diameter + weight + red + green + blue)
 
-deviance_test(model_H0 = model_test[[1]], model_H1 = model_test[[2]], alpha = 0.1)
+deviance_test(model_test, alpha = 0.1)
 ```
 
 ### 5. ROC curve and AUC
@@ -165,8 +145,7 @@ deviance_test(model_H0 = model_test[[1]], model_H1 = model_test[[2]], alpha = 0.
 ```{r, fig.height=4, fig.width=7}
 thres_hold_seq <- seq(0,1, by = 0.05)
 
-drawROCsForEachModel(thres_hold_seq, "nameBin", 
-                     createModels(citrus, nameBin ~ diameter + red + green + blue)[[1]])
+drawROCsForEachModel(thres_hold_seq, "nameBin", createModels(citrus, nameBin ~ diameter + red + green + blue))
 ```
 
 ## 6. Plot response
@@ -228,38 +207,4 @@ predictBasedData(model[[1]], newData)
 ```
 
 However, the criterias is good for small amount of predictors. For big set of regressors, the amount of models the method should check is growing and that's not optimal.
-=======
-```
 
-However, the criterias is good for small amount of predictors. For big set of regressors, the amount of models the method should check is growing and that's not optimal.
-
-### 3.2 Deviance test
-
-Another method to testing model is deviance Goodness-of-fit test named `deviance_test()`. Consider the testing problem:
-
-$$H_0: \forall_{i \in I} \ \ \beta_i = 0 \ \ \ \textrm{against} \ \ \ H_1: \exists_{i \in I} \ \ \beta_i \neq 0,$$
-where $I$ is a set of predictors' indexes. 
-
-For example, test the significance of `red, green, blue` predictors. The model from alternative (`model_H1`) is "full model". Its regressors are the tested predictors and addition one (let's take model `nameBin ~  diameter + weight + red + green + blue`). On the other hand, the model from null hipothesis  (`model_H0`) is a "full model" without tested predictors (`nameBin ~  diameter + weight`).
-
-The null hipothesis is recjeted when the value of `Deviance_statistic` is greater than `Critical_value`, which is a $1 - \alpha$ quantile from distribiution $\chi^2(|I|)$ or the `p_value` is smaller than $\alpha$.
-
-```{r}
-model_test <- logisMod(nameBin ~ diameter + weight, data = citrus)
-model_full <- logisMod(nameBin ~ diameter + weight + red + green + blue, data = citrus)
-
-deviance_test(model_H0 = model_test, model_H1 = model_full, alpha = 0.1)
-```
-
-### 3.3 ROC curve and AUC
-
-```{r}
-computeAUC(logisMod(nameBin ~ diameter + red + green + blue, data = citrus), "nameBin")
-computeAUC(logisMod(nameBin ~ weight + red + green + blue, data = citrus), "nameBin")
-computeAUC(logisMod(nameBin ~ diameter + weight + red + green + blue, data = citrus), "nameBin")
-```
-
-```{r}
-# drawROC()
-```
->>>>>>> vignitte changes
