@@ -81,7 +81,7 @@ resPlot.default <- function(x, strNameY, strNameX, ...){
 #' @import data.table
 #' 
 #' @examples
-#' model <- logisMod(nameBin ~ red, citrus)
+#' model <- createModels(citrus, nameBin ~ red)[[1]]
 #' resPlot(model)
 #' @export
 resPlot.logisMod <- function(x, ...){

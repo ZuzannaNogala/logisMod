@@ -25,6 +25,6 @@ take care of proper type of the arguments.
 Error also occurs when you want to plot without intercept, because we should include it.
 }
 \examples{
-model <- logisMod(nameBin ~ red, citrus)
+model <- createModels(citrus, nameBin ~ red)[[1]]
 resPlot(model)
 }
