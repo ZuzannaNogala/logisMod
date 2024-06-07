@@ -34,9 +34,12 @@ resPlot <- function(x, ...){
 #' resPlot(citrus, "nameBin", "diameter")
 #' @export
 resPlot.default <- function(x, strNameY, strNameX, ...){
-  
   if(length(strNameX) != 1){
     stop("You can plot only one variable!")
+  }
+  
+  if(!(strNameY %in% names(x)) || !(strNameX %in% names(x))){
+    stop(paste0("In data ", strNameY, " or ", strNameX, " doesn't exist! Please check name again."))
   }
   
   predData <- x[[strNameX]]

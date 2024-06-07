@@ -74,6 +74,10 @@ kFoldCV <- function(data, K, threshold, strNameY, pred, fun = ".acc", ...){
     stop("Threshold must be value from (0,1)!")
   }
   
+  if(!(strNameY %in% names(data)) || !all(pred %in% names(data))){
+    stop("One or more of given variables doesn't exist in dataset! Please check names again.")
+  }
+
   rowNum <- nrow(data)
   formula <- .getModelFormula(strNameY, pred)
   modelData <- data[, .SD, .SDcols = c(strNameY, pred)]

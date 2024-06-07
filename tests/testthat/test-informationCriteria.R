@@ -11,3 +11,15 @@ test_that("getting model formula", {
   expect_equal(deparse(.getModelFormula("nameBin", numeric(0))), "nameBin ~ 1")
   expect_equal(deparse(.getModelFormula("nameBin", c("diameter", "red"))), "nameBin ~ diameter + red")
 })
+
+test_that("too much variables!", {
+  possiblePred <- colnames(creditData)
+  expect_error(countInfCrit(creditData, "status", possiblePred))
+})
+
+test_that("variable not in dataset", {
+  possiblePred <- colnames(citrus)[2:6]
+  
+  expect_error(countInfCrit(citrus, "nameBin", "cat"))
+  expect_error(countInfCrit(citrus, "cat", possiblePred))
+})

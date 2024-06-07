@@ -11,3 +11,8 @@ test_that("variable with type other than numeric", {
   expect_error(resPlot(model))
   expect_error(resPlot(creditData, "status", "occupation_type"))
 })
+
+test_that("variable not in dataset", {
+  expect_error(resPlot(creditData, "cat", "occupation_type"))
+  expect_error(resPlot(creditData, "status", "cat"))
+})

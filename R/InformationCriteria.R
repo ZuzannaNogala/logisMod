@@ -77,6 +77,11 @@ countInfCrit <- function(data, strNameY, possPred){
   if(length(possPred) > 8){
     stop("Too much models for comparison.")
   }
+  
+  if(!(strNameY %in% names(data)) || !all(possPred %in% names(data))){
+    stop("One or more of given variables doesn't exist in dataset! Please check names again.")
+  }
+  
   possPredComb <- .getAllCombination(possPred)
   
   result <- lapply(possPredComb, function(item){

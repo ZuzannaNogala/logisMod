@@ -22,6 +22,11 @@
 #' 
 #' @export
 corrHeatmap <- function(data, variables){
+  
+  if(!all(variables %in% names(data))){
+    stop("One or more of given variables is not a column in given dataset!")
+  }
+  
   corr <- stats::cor(data[, variables, with = FALSE])
   corrDT <- as.data.table(corr, keep.rownames = TRUE)
   corrLong <- melt(corrDT, id.vars = "rn", measure.vars = variables)

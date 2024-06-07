@@ -28,3 +28,8 @@ test_that("good type of threshold", {
   expect_error(kFoldCV(citrus, 4, 3, "nameBin", c("red", "blue")))
   expect_error(kFoldCV(citrus, 4, "c", "nameBin", c("red", "blue")))
 })
+
+test_that("variable not in dataset", {
+  expect_error(kFoldCV(citrus, 4, 0.5, "cat", c("red", "blue")))
+  expect_error(kFoldCV(citrus, 4, 0.5, "nameBin", "cat"))
+})
