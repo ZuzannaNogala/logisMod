@@ -21,7 +21,7 @@
 #' 
 #' @export
 visual_boxplot <- function(data, strNameY, strNameX, plot_title = paste("Box plot of", strNameX, "versus", strNameY)){
-  if(strNameY %notin% names(data) || strNameX %notin% names(data)) 
+  if(!(strNameY %in% names(data)) || !(strNameX %in% names(data))) 
     stop(paste0("In data ", strNameY, " or ", strNameX, " doesn't exist! Please check name again."))
   
   ggplot(data, aes(x = as.character(get(strNameY)), 

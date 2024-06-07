@@ -20,7 +20,7 @@ event is counted as a success, if vector then for each accuracy score is compute
 \item{pred}{character vector, vector of predictors' names,
 must be columns of \code{data}}
 
-\item{fun}{function name as character, to use for comparison, as}
+\item{fun}{function name as character, to use for comparison, by default accuracy}
 
 \item{...}{addictional \code{fun} paramteres, with names}
 }

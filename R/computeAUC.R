@@ -24,7 +24,7 @@
 #' 
 #' @export
 computeAUC <- function(strNameY, data, models){
-  if(strNameY %notin% names(data)) 
+  if(!(strNameY %in% names(data))) 
     stop(paste0("In data ", strNameY, " doesn't exist! Please check name again."))
   data <- as.data.table(data)
 

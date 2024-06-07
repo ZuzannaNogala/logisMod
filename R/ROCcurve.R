@@ -18,7 +18,7 @@
 #'
 #' @keywords internal
 .findPointsOnTheROC <- function(thresholds_sequance, model, strNameY){
-  if(strNameY %notin% names(model$data)) 
+  if(!(strNameY %in% names(model$data))) 
     stop(paste0("In data ", strNameY, " doesn't exist! Please check name again."))
   if(sum(thresholds_sequance > 1) != 0) stop("thresholds_sequance is from 0 to 1!")
   

@@ -37,9 +37,9 @@ deviance_test <- function(models, alpha = 0.05){
   model_H0 <- models[[num_model_H0]]
   model_H1 <- models[[setdiff(1:2, num_model_H0)]]
   
-  if(sum(setdiff(names(model_H0$coefficients), "(Intercept)")
-    %notin% 
-    setdiff(names(model_H1$coefficients), "(Intercept)")) > 0) 
+  if(sum(!(setdiff(names(model_H0$coefficients), "(Intercept)")
+    %in% 
+    setdiff(names(model_H1$coefficients), "(Intercept)"))) > 0) 
     stop("Change model from null hipothesis, its predictors has to be in model from alternative.")
   
   deviance_stat <- head(- 2 * (logLik(model_H0) - logLik(model_H1)))
