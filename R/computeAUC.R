@@ -26,7 +26,7 @@
 computeAUC <- function(strNameY, data, models){
   if(strNameY %notin% names(data)) 
     stop(paste0("In data ", strNameY, " doesn't exist! Please check name again."))
-  if(is.data.frame(data)) data <- as.data.table(data)
+  data <- as.data.table(data)
 
   auc_for_models <- lapply(models, function(model){
     roc_stats <- pROC::roc(data[, get(strNameY)], model$fitted.values)

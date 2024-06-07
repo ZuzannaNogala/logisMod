@@ -4,7 +4,7 @@
 \alias{drawROCsForEachModel}
 \title{The ROC curve visualization}
 \usage{
-drawROCsForEachModel(threshold_sequance, strNameY, model1, ...)
+drawROCsForEachModel(threshold_sequance, strNameY, models)
 }
 \arguments{
 \item{threshold_sequance}{sequance of numeric values from 0 to 1, thresholds
@@ -14,10 +14,7 @@ event is counted as a success}
 \item{strNameY}{characteristic, name of dependent variable which takes values
 0 and 1}
 
-\item{model1}{a fitted object of class inheriting from "createModels"}
-
-\item{...}{addiction objects of class" logisMod"; theirs ROC curves will be compare with the curve for the
-model1}
+\item{models}{a fitted object or objects'list of class inheriting from "createModels"}
 }
 \value{
 one plot represents ROC curves for each model
@@ -30,9 +27,9 @@ Rate (FPR) against True Positive Rate (TPR) at each threshold setting.
 }
 \examples{
 model1 <- createModels(citrus, nameBin ~ diameter + blue + red)
-model2 <- createModels(citrus, nameBin ~ diameter)
-model3 <- createModels(citrus, nameBin ~ weight + green)
+models <- createModels(citrus, nameBin ~ diameter + blue + red, nameBin ~ diameter, nameBin ~ weight + green)
 
-drawROCsForEachModel(seq(0, 1, by = 0.05), "nameBin", model1, model2, model3) 
+drawROCsForEachModel(seq(0, 1, by = 0.05), "nameBin", model1) 
+drawROCsForEachModel(seq(0, 1, by = 0.05), "nameBin", models) 
 
 }

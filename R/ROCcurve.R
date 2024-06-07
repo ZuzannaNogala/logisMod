@@ -19,17 +19,19 @@
 #' @keywords internal
 .findPointsOnTheROC <- function(thresholds_sequance, model, strNameY){
   if(sum(thresholds_sequance > 1) != 0) stop("thresholds_sequance is from 0 to 1!")
+  if(is.data.frame(model$data)) data <- as.data.table(model$data)
+  
   coefs <- model$coefficients
   preds <- names(coefs)[-1]
-  Fails <- model$data[get(strNameY) == 0, ..preds]
-  Successes <- model$data[get(strNameY) == 1, ..preds]
+  Fails <- data[get(strNameY) == 0, ..preds]
+  Successes <- data[get(strNameY) == 1, ..preds]
   
   resp_vec <- resp_prediction_for_model(model)
   
   FP <- sapply(thresholds_sequance, 
-               function(p) .False_Positive(p, resp_vec, model$data[, get(strNameY)]))
+               function(p) .False_Positive(p, resp_vec, data[, get(strNameY)]))
   TP <- sapply(thresholds_sequance, 
-               function(p) .True_Positive(p, resp_vec, model$data[, get(strNameY)]))
+               function(p) .True_Positive(p, resp_vec, data[, get(strNameY)]))
   
   
   FPR <- FP / nrow(Fails)
@@ -51,9 +53,7 @@
 #' event is counted as a success
 #' @param strNameY characteristic, name of dependent variable which takes values
 #' 0 and 1
-#' @param model1 a fitted object of class inheriting from "createModels"
-#' @param ... addiction objects of class" logisMod"; theirs ROC curves will be compare with the curve for the 
-#' model1 
+#' @param models a fitted object or objects'list of class inheriting from "createModels"
 #' 
 #' @import ggplot2
 #' @import data.table
@@ -62,23 +62,24 @@
 #' 
 #' @examples
 #' model1 <- createModels(citrus, nameBin ~ diameter + blue + red)
-#' model2 <- createModels(citrus, nameBin ~ diameter)
-#' model3 <- createModels(citrus, nameBin ~ weight + green)
+#' models <- createModels(citrus, nameBin ~ diameter + blue + red, nameBin ~ diameter, nameBin ~ weight + green)
 #' 
-#' drawROCsForEachModel(seq(0, 1, by = 0.05), "nameBin", model1, model2, model3) 
+#' drawROCsForEachModel(seq(0, 1, by = 0.05), "nameBin", model1) 
+#' drawROCsForEachModel(seq(0, 1, by = 0.05), "nameBin", models) 
 #' 
 #' @export
-drawROCsForEachModel <- function(threshold_sequance, strNameY, model1, ...){
-  list_of_models <- list(model1, ...)
+drawROCsForEachModel <- function(threshold_sequance, strNameY, models){
+  if(strNameY %notin% names(models[[1]]$data)) 
+    stop(paste0("In data ", strNameY, " doesn't exist! Please check name again."))
   
-  roc_points_list <- lapply(list_of_models, function(model) .findPointsOnTheROC(threshold_sequance, model, strNameY))
+  roc_points_list <- lapply(models, function(model) .findPointsOnTheROC(threshold_sequance, model, strNameY))
   roc_points_dt_list <- lapply(roc_points_list, function(lst){
     roc_points_dt <- transpose(as.data.table(lst))
     names(roc_points_dt) <- c("FPR", "TPR")
     roc_points_dt
   }) 
   
-  types_names <- rep(c("random classiffier" ,paste("model", 1:length(list_of_models))), 
+  types_names <- rep(c("random classiffier" ,paste("model", 1:length(models))), 
                      each = length(threshold_sequance))
   
   visual_dt <- data.table(x = c(threshold_sequance, unlist(lapply(roc_points_dt_list, function(lst) lst$FPR))),
@@ -94,3 +95,4 @@ drawROCsForEachModel <- function(threshold_sequance, strNameY, model1, ...){
     theme_bw()+
     scale_color_brewer(palette = "Set1")
 }
+
