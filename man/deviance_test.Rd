@@ -4,16 +4,14 @@
 \alias{deviance_test}
 \title{Deviance test for two logistic models}
 \usage{
-deviance_test(model_H0, model_H1, alpha = 0.05)
+deviance_test(models, alpha = 0.05)
 }
 \arguments{
+\item{models}{fitted objects' list of class inheriting from "logisMod" from null
+hypothesis (models with less predictors are supported) and alternative
+(models with more predictors are supported)}
+
 \item{alpha}{numeric, significance level of test}
-
-\item{model_H0a}{fitted object of class inheriting from "logisMod" from null
-hypothesis (models with less predictors are supported)}
-
-\item{model_H1a}{fitted object of class inheriting from "logisMod" from
-alternative hypothesis (models with more predictors are supported)}
 }
 \value{
 list of names of testing predictors, value of deviance statistic,
@@ -24,9 +22,8 @@ function returns deviance test summary to verify null hypothesis H0: predictors
 from set A is insignificant vs alternative H1: significant predictor exists in set A (full model)
 }
 \examples{
-model_full <- createModels(citrus, nameBin ~ diameter + green + blue + weight)
-model_unfull <- createModels(citrus, nameBin ~ weight + green)
+models <- createModels(citrus, nameBin ~ diameter + blue + weight, nameBin ~ weight)
                  
-deviance_test(model_H0 = model_unfull, model_H1 = model_full, alpha = 0.1)
+deviance_test(models, alpha = 0.1)
 
 }
