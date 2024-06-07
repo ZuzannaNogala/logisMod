@@ -1,10 +1,11 @@
-model <- logisMod(nameBin ~  diameter + red + green, citrus)
+model <- createModels(citrus, nameBin ~  diameter + red + green)
+models <- createModels(citrus, nameBin ~  diameter + red + green, nameBin ~ weight + blue)
 
 test_that("too long sequance", {
-  expect_error(drawROC(seq(0, 2, by = 0.01), model, "nameBin"))
+  expect_error(drawROCsForEachModel(seq(0, 2, by = 0.01), "nameBin", model))
 })
 
 
 test_that("is drawing working?", {
-  expect_no_error(drawROC(seq(0, 1, by = 0.05), model, "nameBin"))
+  expect_no_error(drawROCsForEachModel(seq(0, 1, by = 0.05), "nameBin", models))
 })
