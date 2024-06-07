@@ -56,7 +56,7 @@
 #' event is counted as a success
 #' @param strNameY characteristic, name of dependent variable which takes values
 #' 0 and 1
-#' @param models a fitted object or objects' list of class inheriting from "createModels"
+#' @param models a fitted object or objects' list of class inheriting from "logisMod"
 #' 
 #' @import ggplot2
 #' @import data.table

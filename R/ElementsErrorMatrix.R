@@ -92,23 +92,22 @@
 #' @param thres_prob numeric from 0 to 1, threshold of success' probability - if predicted
 #' probability of dependent variable is higher than treshold, the event is counted as a success
 #' @param Y_vec dependent variable Y which takes the values 0 and 1
-#' @param model1 a fitted object of class inheriting from "logisMod"
-#' @param ... addiction objects of class" logisMod"; theirs ROC curves will be compare with the curve of 
-#' model1 
+#' @param models a fitted object or objects' list of class inheriting from "logisMod"
 #' 
 #' @return list with Error Matrix, Accuracy of model, Sensitivity and Specificity for each
 #' vector of transformed model's predictions (for each regression )
 #' @examples
-#' model1 <- createModels(citrus, nameBin ~ diameter + green + blue)
-#' model2 <- createModels(citrus, nameBin ~ diameter + red + blue + green)
+#' model <- createModels(citrus, nameBin ~ diameter + green + blue)
+#' models <- createModels(citrus, nameBin ~ diameter + green + blue, 
+#'           nameBin ~ diameter + red + blue + green)
 #' p <- 0.6
 #' 
-#' CreateErrorMatrixStats(p, citrus$nameBin, model1, model2)
+#' CreateErrorMatrixStats(p, citrus$nameBin, models)
+#' CreateErrorMatrixStats(p, citrus$nameBin, model)
 #' 
 #' @export
-CreateErrorMatrixStats <- function(thres_prob, Y_vec, model1, ...){
-  list_of_models <- list(model1, ...)
-  list_of_response_prediction <- lapply(list_of_models, function(model) predictBasedData(model1, citrus))
+CreateErrorMatrixStats <- function(thres_prob, Y_vec, models){
+  list_of_response_prediction <- lapply(models, function(model) predictBasedData(model, citrus))
   
   elementsErrorMatrix_list <- lapply(list_of_response_prediction, function(pred_vec){
     TP <- .True_Positive(thres_prob, pred_vec, Y_vec) 
@@ -138,9 +137,9 @@ CreateErrorMatrixStats <- function(thres_prob, Y_vec, model1, ...){
          "Specificity" = Specificity)
   })
   
-  names(Stats_list) <- paste0("model", 1:length(list_of_models))
+  names(Stats_list) <- paste0("model", 1:length(models))
   
-  if(length(list_of_models) == 1) return(Stats_list[[1]])
+  if(length(models) == 1) return(Stats_list[[1]])
   else{
     Stats_list_transpose <- list(lapply(Stats_list, function(lst) lst$ErrorMatrix),
                                  lapply(Stats_list, function(lst) lst$Accuracy),
@@ -166,7 +165,7 @@ CreateErrorMatrixStats <- function(thres_prob, Y_vec, model1, ...){
 #' 
 #' @return plot which represents Confusion / Error Matrix for model
 #' @examples
-#' model <- createModels(nameBin ~ diameter + green + blue, data = citrus)
+#' model <- createModels(citrus, nameBin ~ diameter + green + blue)
 #' p <- 0.6
 #' 
 #' visualErrorMatrix(p, citrus$nameBin, model)
