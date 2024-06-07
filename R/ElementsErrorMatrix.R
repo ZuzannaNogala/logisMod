@@ -137,8 +137,6 @@ CreateErrorMatrixStats <- function(thres_prob, Y_vec, models){
          "Specificity" = Specificity)
   })
   
-  names(Stats_list) <- paste0("model", 1:length(models))
-  
   if(length(models) == 1) return(Stats_list[[1]])
   else{
     Stats_list_transpose <- list(lapply(Stats_list, function(lst) lst$ErrorMatrix),

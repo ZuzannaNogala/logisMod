@@ -4,7 +4,7 @@
 \alias{CreateErrorMatrixStats}
 \title{Create the Confusion / Error Matrix}
 \usage{
-CreateErrorMatrixStats(thres_prob, Y_vec, model1, ...)
+CreateErrorMatrixStats(thres_prob, Y_vec, models)
 }
 \arguments{
 \item{thres_prob}{numeric from 0 to 1, threshold of success' probability - if predicted
@@ -12,10 +12,7 @@ probability of dependent variable is higher than treshold, the event is counted 
 
 \item{Y_vec}{dependent variable Y which takes the values 0 and 1}
 
-\item{model1}{a fitted object of class inheriting from "logisMod"}
-
-\item{...}{addiction objects of class" logisMod"; theirs ROC curves will be compare with the curve of
-model1}
+\item{models}{a fitted object or objects' list of class inheriting from "logisMod"}
 }
 \value{
 list with Error Matrix, Accuracy of model, Sensitivity and Specificity for each
@@ -27,10 +24,12 @@ False Positives (FP), True Negative (TN), False Negative (FN)), Accuracy of mode
 Sensitivity and Specificity.
 }
 \examples{
-model1 <- createModels(citrus, nameBin ~ diameter + green + blue)
-model2 <- createModels(citrus, nameBin ~ diameter + red + blue + green)
+model <- createModels(citrus, nameBin ~ diameter + green + blue)
+models <- createModels(citrus, nameBin ~ diameter + green + blue, 
+          nameBin ~ diameter + red + blue + green)
 p <- 0.6
 
-CreateErrorMatrixStats(p, citrus$nameBin, model1, model2)
+CreateErrorMatrixStats(p, citrus$nameBin, models)
+CreateErrorMatrixStats(p, citrus$nameBin, model)
 
 }

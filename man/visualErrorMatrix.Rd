@@ -21,7 +21,7 @@ plot which represents Confusion / Error Matrix for model
 function displays Confusion / Error Matrix.
 }
 \examples{
-model <- createModels(nameBin ~ diameter + green + blue, data = citrus)
+model <- createModels(citrus, nameBin ~ diameter + green + blue)
 p <- 0.6
 
 visualErrorMatrix(p, citrus$nameBin, model)

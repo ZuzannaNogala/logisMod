@@ -14,7 +14,7 @@ event is counted as a success}
 \item{strNameY}{characteristic, name of dependent variable which takes values
 0 and 1}
 
-\item{models}{a fitted object or objects' list of class inheriting from "createModels"}
+\item{models}{a fitted object or objects' list of class inheriting from "logisMod"}
 }
 \value{
 one plot represents ROC curves for each model
