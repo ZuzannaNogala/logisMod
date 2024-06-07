@@ -40,6 +40,7 @@ Firstly, let's create boxplots with using `visual_boxplot()` method. That's can 
 
 ```{r, echo = TRUE, fig.width=5, fig.height=4, fig.align='center'}
 p1 <- visual_boxplot(data = citrus, strNameY = "nameBin", strNameX = "diameter")
+
 p1
 ```
 
