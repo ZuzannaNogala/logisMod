@@ -7,14 +7,14 @@
 drawROCsForEachModel(threshold_sequance, strNameY, models)
 }
 \arguments{
-\item{threshold_sequance}{sequance of numeric values from 0 to 1, thresholds
-of success' probability - if predicted probability of dependent variable is higher than treshold, the
+\item{threshold_sequance}{sequence of numeric values from 0 to 1, thresholds
+of success' probability - if predicted probability of dependent variable is higher than threshold, the
 event is counted as a success}
 
 \item{strNameY}{characteristic, name of dependent variable which takes values
 0 and 1}
 
-\item{models}{a fitted object or objects'list of class inheriting from "createModels"}
+\item{models}{a fitted object or objects' list of class inheriting from "createModels"}
 }
 \value{
 one plot represents ROC curves for each model

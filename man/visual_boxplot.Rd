@@ -6,17 +6,17 @@
 \usage{
 visual_boxplot(
   data,
-  str_name_Y,
-  str_name_X,
-  plot_title = paste("Box plot of", str_name_X, "versus", str_name_Y)
+  strNameY,
+  strNameX,
+  plot_title = paste("Box plot of", strNameX, "versus", strNameY)
 )
 }
 \arguments{
 \item{data}{data table or data frame, cointains names of variables}
 
-\item{str_name_Y}{character, name of dependent variable Y which takes the values 0 and 1}
+\item{strNameY}{character, name of dependent variable Y which takes the values 0 and 1}
 
-\item{str_name_X}{character, name of independent variable/predictor X}
+\item{strNameX}{character, name of independent variable/predictor X}
 
 \item{plot_title}{character, optional, title of box plot}
 }
@@ -30,7 +30,8 @@ package patchwork is available to simplify displaying graphs
 \examples{
 citrus
 str(citrus)
-p1 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X ="diameter")
-p2 <- visual_boxplot(data = citrus, str_name_Y = "nameBin", str_name_X ="green")
+p1 <- visual_boxplot(data = citrus, strNameY = "nameBin", strNameX ="diameter")
+p2 <- visual_boxplot(data = citrus, strNameY = "nameBin", strNameX ="green")
 p1 + p2
+
 }

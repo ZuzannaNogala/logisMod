@@ -6,5 +6,6 @@ test_that("computing AUC works", {
 })
 
 test_that("wrong spelling Y name", {
-  expect_error(computeAUC("namBin", citrus, models)$AUC)
+  expect_error(computeAUC("namBin", citrus, models)$AUC,
+               regexp = "check name")
 })

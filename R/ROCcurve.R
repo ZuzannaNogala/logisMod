@@ -1,10 +1,10 @@
-#' Finding points on the ROC curve coressponding to a choosen threshold
+#' Finding points on the ROC curve corresponding to a choosen threshold
 #'
 #' \code{.findPointsOnTheROC} computes a point which represents the False 
 #' Positive Rate (FPR) and the True Positive Rate (TPR, sensitivity) at each threshold
 #' setting
 #' 
-#' @param thresholds_sequance sequance of numeric values from 0 to 1, thresholds 
+#' @param thresholds_sequance sequence of numeric values from 0 to 1, thresholds 
 #' of success' probability - if predicted probability of dependent variable is higher than treshold, the 
 #' event is counted as a success
 #' @param model glm.object, logistic model build from data, which is data.table 
@@ -18,7 +18,10 @@
 #'
 #' @keywords internal
 .findPointsOnTheROC <- function(thresholds_sequance, model, strNameY){
+  if(strNameY %notin% names(model$data)) 
+    stop(paste0("In data ", strNameY, " doesn't exist! Please check name again."))
   if(sum(thresholds_sequance > 1) != 0) stop("thresholds_sequance is from 0 to 1!")
+  
   if(is.data.frame(model$data)) data <- as.data.table(model$data)
   
   coefs <- model$coefficients
@@ -48,12 +51,12 @@
 #' threshold of success' probability. Each point on curve represents False Positive 
 #' Rate (FPR) against True Positive Rate (TPR) at each threshold setting. 
 #' 
-#' @param threshold_sequance sequance of numeric values from 0 to 1, thresholds 
-#' of success' probability - if predicted probability of dependent variable is higher than treshold, the 
+#' @param threshold_sequance sequence of numeric values from 0 to 1, thresholds 
+#' of success' probability - if predicted probability of dependent variable is higher than threshold, the 
 #' event is counted as a success
 #' @param strNameY characteristic, name of dependent variable which takes values
 #' 0 and 1
-#' @param models a fitted object or objects'list of class inheriting from "createModels"
+#' @param models a fitted object or objects' list of class inheriting from "createModels"
 #' 
 #' @import ggplot2
 #' @import data.table
@@ -69,9 +72,6 @@
 #' 
 #' @export
 drawROCsForEachModel <- function(threshold_sequance, strNameY, models){
-  if(strNameY %notin% names(models[[1]]$data)) 
-    stop(paste0("In data ", strNameY, " doesn't exist! Please check name again."))
-  
   roc_points_list <- lapply(models, function(model) .findPointsOnTheROC(threshold_sequance, model, strNameY))
   roc_points_dt_list <- lapply(roc_points_list, function(lst){
     roc_points_dt <- transpose(as.data.table(lst))

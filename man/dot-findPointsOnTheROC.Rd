@@ -2,12 +2,12 @@
 % Please edit documentation in R/ROCcurve.R
 \name{.findPointsOnTheROC}
 \alias{.findPointsOnTheROC}
-\title{Finding points on the ROC curve coressponding to a choosen threshold}
+\title{Finding points on the ROC curve corresponding to a choosen threshold}
 \usage{
 .findPointsOnTheROC(thresholds_sequance, model, strNameY)
 }
 \arguments{
-\item{thresholds_sequance}{sequance of numeric values from 0 to 1, thresholds
+\item{thresholds_sequance}{sequence of numeric values from 0 to 1, thresholds
 of success' probability - if predicted probability of dependent variable is higher than treshold, the
 event is counted as a success}
 
