@@ -4,19 +4,18 @@
 \alias{computeAUC}
 \title{Computing AUC}
 \usage{
-computeAUC(strNameY, model1, ...)
+computeAUC(strNameY, data, models)
 }
 \arguments{
 \item{strNameY}{characteristic, name of dependent variable which takes values
 0 and 1}
 
-\item{model1}{a fitted object of class inheriting from "logisMod"}
+\item{data}{a data.table or data.frame object, from which data for models is taken}
 
-\item{...}{addiction object of class "logisMod"; theirs AUC will be compare with the AUC for the
-model1}
+\item{models}{a fitted object or objects' list of class inheriting from "logisMod"}
 }
 \value{
-numeric from 0 to 1, represents area under ROC curve for each model
+a data.table object with area under ROC curve for each model
 }
 \description{
 function finds the Area Under the Receiver Operating Characterisric
@@ -25,9 +24,10 @@ denotes better model performance. If AUC equals 0.5, the model is random
 classiffier. It means the model randomly decides that if event is success or not.
 }
 \examples{
-model1 <- createModels(citrus, nameBin ~ diameter + blue + red)
-model2 <- createModels(citrus, nameBin ~ weight + green + red)
+models <- createModels(citrus, nameBin ~ diameter +blue + red, nameBin ~ weight + green)
+model <- createModels(citrus, nameBin ~ diameter + blue + red)
 
-computeAUC("nameBin", model1, model2)
+computeAUC("nameBin", citrus, models)
+computeAUC("nameBin", citrus, model)
 
 }

@@ -1,7 +1,7 @@
 test_that("computing AUC works", {
-  model <-  glm(nameBin ~ diameter + green + blue, data = citrus, family = binomial("logit"))
-  roc_stats <- pROC::roc(citrus[, nameBin], model$fitted.values)
+  models <-  createModels(citrus, nameBin ~ weight + red + green, nameBin ~ weight + red)
+  roc_stats <- sapply(1:2, function(i) pROC::roc(citrus[, nameBin], model[[i]]$fitted.values)$auc)
   
-  expect_equal(computeAUC(model, "nameBin"), head(roc_stats$auc))
+  expect_equal(unlist(computeAUC("nameBin", citrus, models)$AUC), roc_stats)
 })
 
