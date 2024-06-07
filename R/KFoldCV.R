@@ -51,7 +51,7 @@
 #' @param strNameY character, name of dependent variable Y which takes the values 0 and 1
 #' @param pred character vector, vector of predictors' names, 
 #' must be columns of \code{data}
-#' @param fun function name as character, to use for comparison, as 
+#' @param fun function name as character, to use for comparison, by default accuracy
 #' @param ... addictional \code{fun} paramteres, with names
 #' 
 #' @return data.table with choosen threshold and its accuracy score (by default), or mean from result of another function
