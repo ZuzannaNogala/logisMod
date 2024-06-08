@@ -1,9 +1,9 @@
 model <- createModels(citrus, nameBin ~  diameter + red + green)
 models <- createModels(citrus, nameBin ~  diameter + red + green, nameBin ~ weight + blue)
 
-test_that("too long sequance", {
+test_that("too long sequence", {
   expect_error(drawROCsForEachModel(seq(0, 2, by = 0.01), "nameBin", model), 
-               regexp = "thresholds_sequance")
+               regexp = "threshold_sequence")
 })
 
 test_that("wrong spelling", {
