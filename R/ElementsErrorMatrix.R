@@ -107,7 +107,7 @@
 #' 
 #' @export
 CreateErrorMatrixStats <- function(thres_prob, Y_vec, models){
-  list_of_response_prediction <- lapply(models, function(model) predictBasedData(model, citrus))
+  list_of_response_prediction <- lapply(models, function(model) predictBasedData(model, model$data))
   
   elementsErrorMatrix_list <- lapply(list_of_response_prediction, function(pred_vec){
     TP <- .True_Positive(thres_prob, pred_vec, Y_vec) 
@@ -186,5 +186,4 @@ visualErrorMatrix <- function(thres_prob, Y_vec, model){
           line = element_blank())
   
 }
-
 
