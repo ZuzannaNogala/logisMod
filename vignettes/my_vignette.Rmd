@@ -147,9 +147,10 @@ threshold_seq <- seq(0, 1, by = 0.05)
 models_to_compare <- createModels(citrus, nameBin ~ diameter + red + green + blue,
 nameBin ~ red + green + blue,
 nameBin ~ diameter + weight + red + green + blue)
-                                                                                                     
-                                                                                                  computeAUC("nameBin", citrus, models_to_compare)
-                                                                                                    drawROCsForEachModel(threshold_seq, "nameBin", models_to_compare)
+
+computeAUC("nameBin", citrus, models_to_compare)
+
+drawROCsForEachModel(threshold_seq, "nameBin", models_to_compare)
 ```
 
 ## 6. Plot response
