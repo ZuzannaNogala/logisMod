@@ -3,18 +3,18 @@
 #' function returns deviance test summary to verify null hypothesis H0: predictors
 #' from set A is insignificant vs alternative H1: significant predictor exists in set A (full model)
 #' 
-#' @param models fitted objects' list of class inheriting from "logisMod" from null 
-#' hypothesis (models with less predictors are supported) and alternative 
+#' @param models fitted objects' list of class inheriting from "logisMod". One model is from null 
+#' hypothesis (models with less predictors are supported) and second one is alternative 
 #' (models with more predictors are supported)
-#' @param alpha numeric, significance level of test
+#' @param alpha numeric, significance level of test, value from 0 to 1
 #' 
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq
 #' @importFrom stats logLik
 #' @importFrom utils head
 #' 
-#' @return list of names of testing predictors, value of deviance statistic, 
-#' degrees of freedom, critical value of deviance statistic and p value. 
+#' @return list of testing predictors' names, value of deviance statistic, 
+#' degrees of freedom, critical value of deviance statistic and p-value. 
 #' 
 #' @examples
 #' models <- createModels(citrus, nameBin ~ diameter + blue + weight, nameBin ~ weight)

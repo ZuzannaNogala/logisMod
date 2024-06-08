@@ -4,10 +4,10 @@
 \alias{drawROCsForEachModel}
 \title{The ROC curve visualization}
 \usage{
-drawROCsForEachModel(threshold_sequance, strNameY, models)
+drawROCsForEachModel(threshold_sequence, strNameY, models)
 }
 \arguments{
-\item{threshold_sequance}{sequence of numeric values from 0 to 1, thresholds
+\item{threshold_sequence}{sequence of numeric values from 0 to 1, thresholds
 of success' probability - if predicted probability of dependent variable is higher than threshold, the
 event is counted as a success}
 

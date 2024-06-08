@@ -1,9 +1,9 @@
 #' Box plot visualization for logistic model
 #'
-#' function displays distribition data based on its five statistic: 
+#' function displays distribution data based on its five statistic: 
 #' minimum, first quartile Q1, median, third quartile Q3 and maximum
 #' 
-#' @param data data table or data frame, cointains names of variables
+#' @param data data table or data frame, contains names of variables
 #' @param strNameY character, name of dependent variable Y which takes the values 0 and 1
 #' @param strNameX character, name of independent variable/predictor X
 #' @param plot_title character, optional, title of box plot
@@ -11,7 +11,8 @@
 #' @import ggplot2
 #' @import patchwork
 #' @details
-#' package patchwork is available to simplify displaying graphs
+#' package patchwork is available to simplify displaying multiple boxplots. For more details
+#' see \code{\link{patchwork}}
 #' @examples
 #' citrus
 #' str(citrus)

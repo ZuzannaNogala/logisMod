@@ -4,9 +4,9 @@
 #'  by model (actual success was predicted by model as succes)
 #' 
 #' @param thres_prob numeric from 0 to 1, threshold of success' probability - if predicted
-#' probability of dependent variable is higher than treshold, the event is counted as a success
+#' probability of dependent variable is higher than threshold, the event is counted as a success
 #' @param resp_pred_vec numeric vector of transformed predictions (by inverse link function) of dependent variable
-#' from data set; output of function resp_prediction_for_model()
+#' from data set; we recommend use function \code{\link{predictBasedData}} from this package
 #' @param Y_vec dependent variable Y which takes the values 0 and 1
 #' 
 #' @importFrom stats glm
@@ -25,9 +25,9 @@
 #'failures by model (actual failure was predicted by model as success)
 #' 
 #' @param thres_prob numeric from 0 to 1, threshold of success' probability - if predicted
-#' probability of dependent variable is higher than treshold, the event is counted as a success
+#' probability of dependent variable is higher than threshold, the event is counted as a success
 #' @param resp_pred_vec numeric vector of transformed predictions (by inverse link function) of dependent variable
-#' from data set; output of function resp_prediction_for_model()
+#' from data set; we recommend use function \code{\link{predictBasedData}}
 #' @param Y_vec dependent variable Y which takes the values 0 and 1
 #' 
 #' @importFrom stats glm
@@ -46,9 +46,9 @@
 #'  by model (actual failure was predicted by model as failure)
 #' 
 #' @param thres_prob numeric from 0 to 1, threshold of success' probability - if predicted
-#' probability of dependent variable is higher than treshold, the event is counted as a success
+#' probability of dependent variable is higher than threshold, the event is counted as a success
 #' @param resp_pred_vec numeric vector of transformed predictions (by inverse link function) of dependent variable
-#' from data set; output of function resp_prediction_for_model()
+#' from data set; we recommend use function \code{\link{predictBasedData}}
 #' @param Y_vec dependent variable Y which takes the values 0 and 1
 #' 
 #' @importFrom stats glm
@@ -67,9 +67,9 @@
 #'  by model (actual success was predicted by model as failure)
 #' 
 #' @param thres_prob numeric from 0 to 1, threshold of success' probability - if predicted
-#' probability of dependent variable is higher than treshold, the event is counted as a success
+#' probability of dependent variable is higher than threshold, the event is counted as a success
 #' @param resp_pred_vec numeric vector of transformed predictions (by inverse link function) of dependent variable
-#' from data set; output of function resp_prediction_for_model()
+#' from data set; we recommend use function \code{\link{predictBasedData}}
 #' @param Y_vec dependent variable Y which takes the values 0 and 1
 #' 
 #' @importFrom stats glm
@@ -85,12 +85,12 @@
 
 #' Create the Confusion / Error Matrix
 #'
-#' function returns list which cointains Confussion / Error Matrix (i.e sum of: True Positives (TP), 
+#' function returns list which contains Confusion / Error Matrix (i.e sum of: True Positives (TP), 
 #' False Positives (FP), True Negative (TN), False Negative (FN)), Accuracy of model,
 #' Sensitivity and Specificity.
 #' 
 #' @param thres_prob numeric from 0 to 1, threshold of success' probability - if predicted
-#' probability of dependent variable is higher than treshold, the event is counted as a success
+#' probability of dependent variable is higher than threshold, the event is counted as a success
 #' @param Y_vec dependent variable Y which takes the values 0 and 1
 #' @param models a fitted object or objects' list of class inheriting from "logisMod"
 #' 
@@ -155,7 +155,7 @@ CreateErrorMatrixStats <- function(thres_prob, Y_vec, models){
 #' function displays Confusion / Error Matrix.
 #' 
 #' @param thres_prob numeric from 0 to 1, threshold of success' probability - if predicted
-#' probability of dependent variable is higher than treshold, the event is counted as a success
+#' probability of dependent variable is higher than threshold, the event is counted as a success
 #' @param Y_vec dependent variable Y which takes the values 0 and 1
 #' @param model a fitted object of class inheriting from "logisMod"
 #' 
@@ -186,4 +186,5 @@ visualErrorMatrix <- function(thres_prob, Y_vec, model){
           line = element_blank())
   
 }
+
 

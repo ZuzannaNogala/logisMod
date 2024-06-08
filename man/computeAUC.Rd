@@ -18,10 +18,10 @@ computeAUC(strNameY, data, models)
 a data.table object with area under ROC curve for each model
 }
 \description{
-function finds the Area Under the Receiver Operating Characterisric
+function finds the Area Under the Receiver Operating Characteristic
 curve (AUC). The area under curve lies between 0 to 1. The greater value of AUC
 denotes better model performance. If AUC equals 0.5, the model is random
-classiffier. It means the model randomly decides that if event is success or not.
+classifier. It means the model randomly decides that if event is success or not.
 }
 \examples{
 models <- createModels(citrus, nameBin ~ diameter +blue + red, nameBin ~ weight + green)

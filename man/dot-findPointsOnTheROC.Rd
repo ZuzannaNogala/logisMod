@@ -2,13 +2,13 @@
 % Please edit documentation in R/ROCcurve.R
 \name{.findPointsOnTheROC}
 \alias{.findPointsOnTheROC}
-\title{Finding points on the ROC curve corresponding to a choosen threshold}
+\title{Finding points on the ROC curve corresponding to a chosen threshold}
 \usage{
-.findPointsOnTheROC(thresholds_sequance, model, strNameY)
+.findPointsOnTheROC(threshold_sequence, model, strNameY)
 }
 \arguments{
-\item{thresholds_sequance}{sequence of numeric values from 0 to 1, thresholds
-of success' probability - if predicted probability of dependent variable is higher than treshold, the
+\item{threshold_sequence}{sequence of numeric values from 0 to 1, thresholds
+of success' probability - if predicted probability of dependent variable is higher than threshold, the
 event is counted as a success}
 
 \item{model}{glm.object, logistic model build from data, which is data.table

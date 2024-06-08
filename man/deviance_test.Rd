@@ -7,15 +7,15 @@
 deviance_test(models, alpha = 0.05)
 }
 \arguments{
-\item{models}{fitted objects' list of class inheriting from "logisMod" from null
-hypothesis (models with less predictors are supported) and alternative
+\item{models}{fitted objects' list of class inheriting from "logisMod". One model is from null
+hypothesis (models with less predictors are supported) and second one is alternative
 (models with more predictors are supported)}
 
-\item{alpha}{numeric, significance level of test}
+\item{alpha}{numeric, significance level of test, value from 0 to 1}
 }
 \value{
-list of names of testing predictors, value of deviance statistic,
-degrees of freedom, critical value of deviance statistic and p value.
+list of testing predictors' names, value of deviance statistic,
+degrees of freedom, critical value of deviance statistic and p-value.
 }
 \description{
 function returns deviance test summary to verify null hypothesis H0: predictors

@@ -8,7 +8,7 @@ CreateErrorMatrixStats(thres_prob, Y_vec, models)
 }
 \arguments{
 \item{thres_prob}{numeric from 0 to 1, threshold of success' probability - if predicted
-probability of dependent variable is higher than treshold, the event is counted as a success}
+probability of dependent variable is higher than threshold, the event is counted as a success}
 
 \item{Y_vec}{dependent variable Y which takes the values 0 and 1}
 
@@ -19,7 +19,7 @@ list with Error Matrix, Accuracy of model, Sensitivity and Specificity for each
 vector of transformed model's predictions (for each regression )
 }
 \description{
-function returns list which cointains Confussion / Error Matrix (i.e sum of: True Positives (TP),
+function returns list which contains Confusion / Error Matrix (i.e sum of: True Positives (TP),
 False Positives (FP), True Negative (TN), False Negative (FN)), Accuracy of model,
 Sensitivity and Specificity.
 }

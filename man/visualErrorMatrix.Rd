@@ -8,7 +8,7 @@ visualErrorMatrix(thres_prob, Y_vec, model)
 }
 \arguments{
 \item{thres_prob}{numeric from 0 to 1, threshold of success' probability - if predicted
-probability of dependent variable is higher than treshold, the event is counted as a success}
+probability of dependent variable is higher than threshold, the event is counted as a success}
 
 \item{Y_vec}{dependent variable Y which takes the values 0 and 1}
 

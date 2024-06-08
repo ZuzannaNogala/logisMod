@@ -12,7 +12,7 @@ visual_boxplot(
 )
 }
 \arguments{
-\item{data}{data table or data frame, cointains names of variables}
+\item{data}{data table or data frame, contains names of variables}
 
 \item{strNameY}{character, name of dependent variable Y which takes the values 0 and 1}
 
@@ -21,11 +21,12 @@ visual_boxplot(
 \item{plot_title}{character, optional, title of box plot}
 }
 \description{
-function displays distribition data based on its five statistic:
+function displays distribution data based on its five statistic:
 minimum, first quartile Q1, median, third quartile Q3 and maximum
 }
 \details{
-package patchwork is available to simplify displaying graphs
+package patchwork is available to simplify displaying multiple boxplots. For more details
+see \code{\link{patchwork}}
 }
 \examples{
 citrus

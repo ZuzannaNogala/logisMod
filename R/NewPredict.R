@@ -23,3 +23,4 @@
 predictBasedData <- function(object, pred_data){
   stats::predict.glm(object, newdata = pred_data, type = "response")
 }
+?predictBasedData

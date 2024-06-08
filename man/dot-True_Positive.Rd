@@ -8,10 +8,10 @@
 }
 \arguments{
 \item{thres_prob}{numeric from 0 to 1, threshold of success' probability - if predicted
-probability of dependent variable is higher than treshold, the event is counted as a success}
+probability of dependent variable is higher than threshold, the event is counted as a success}
 
 \item{resp_pred_vec}{numeric vector of transformed predictions (by inverse link function) of dependent variable
-from data set; output of function resp_prediction_for_model()}
+from data set; we recommend use function \code{\link{predictBasedData}} from this package}
 
 \item{Y_vec}{dependent variable Y which takes the values 0 and 1}
 }
