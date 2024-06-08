@@ -140,7 +140,7 @@ deviance_test(model_test, alpha = 0.1)
 ### 5. ROC curve and AUC
 
 A receiver operating characteristic curve (ROC curve) is a graphical plot which illustrates the performance of a binary classifier model for different choices of threshold of success' probability. Each point on curve represents False Positive Rate (FPR) against True Positive Rate (TPR) at each threshold setting. The AUC statistic (Area under curve) is used to compare ROC curves of different models. If AUC is closer to 1, the model performances better.
-                                                                                                     In package those statistic are implemented. The user can display ROC curve plot for many logistic regressions using `drawROCsForEachModel()` method and compare AUC thanks to `computeAUC()` method. Second method is fixed form of `pROC::roc` function, which is usable for many logistic models at once. For more details or different version see [pROC::roc](https://www.rdocumentation.org/packages/pROC/versions/1.18.5/topics/roc).
+                                                                                                     In package those statistic are implemented. The user can display ROC curve plot for many logistic regressions using `drawROCsForEachModel()` method and compare AUC thanks to `computeAUC()` method. Second method is fixed form of `pROC::roc` function, which now is usable for many logistic models at once. For more details or different version see [pROC::roc()](https://www.rdocumentation.org/packages/pROC/versions/1.18.5/topics/roc).
 
 ```{r, fig.height=4, fig.width=7, echo=TRUE}
 threshold_seq <- seq(0, 1, by = 0.05)
