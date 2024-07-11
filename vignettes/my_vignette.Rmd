@@ -1,20 +1,20 @@
 ---
-title: "A guide to projektROR"
+title: "A guide to logisMod"
 output: rmarkdown::html_vignette
 author: Hankus Oktawia, Nogala Zuzanna
 vignette: >
-  %\VignetteIndexEntry{A guide to projektROR}
+  %\VignetteIndexEntry{A guide to logisMod}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
   
 # About 
   
-The projektROR is a R package with useful tools to analyze data using logistic model. 
+The logisMod is a R package with useful tools to analyze data using logistic model. 
 
 Our package provides a method to build logistic regression based on user's data, which are `data.table` object. There are few methods to help the user to visualize data sets. The package includes a boxplot method to show relationship between regressors and the dependent variable. In addition user can see Correlation Heatmap. Furthermore it is possible to compare models with implemented method of ROC curve with AUC or plot with fitted logit curve to data. Also package allows to compare regressions by informative criteria like AIC, BIC and also by K-Fold Cross Validation. In addition, there is a method to computed all response predictions for created model's data or new one. 
 
-In our package there are two datasets `citrus` and`creditData`, which are `data.table` objects. Based of them, we will show the funtions in projektROR package.
+In our package there are two datasets `citrus` and`creditData`, which are `data.table` objects. Based of them, we will show the funtions in logisMod package.
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ```{r setup}
-library(projektROR)
+library(logisMod)
 ```
 
 ## 1. Visualize dataset
