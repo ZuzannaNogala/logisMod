@@ -1,4 +1,4 @@
-Package: projektROR
+Package: logisMod
 Title: Comparing models based on logistic regression 
 Version: 0.0.0.9000
 Authors@R: c(
