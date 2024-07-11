@@ -11,9 +11,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-# projektROR
+# logisMod
 
-The goal of projektROR is to provide all necessary tools for data
+The goal of logisMod is to provide all necessary tools for data
 analisys using logistic regression.
 
 Our package supplies method for creating logistic regresion model. It
@@ -29,12 +29,12 @@ Package contains two exemplary data sets to get to know it better.
 
 ## Installation
 
-You can install the development version of projektROR from
+You can install the development version of logisMod from
 [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ZuzannaNogala/projektROR", build_vignettes = TRUE)
+devtools::install_github("ZuzannaNogala/logisMod", build_vignettes = TRUE)
 ```
 ## Data
 
@@ -43,7 +43,7 @@ diameter of an “average” orange and grapefruit, which we can be used to
 predict what type of fruit we have.
 
 ```{r citrus}
-library(projektROR)
+library(logisMod)
 head(citrus)
 ```
 
@@ -70,5 +70,5 @@ If you want to learn more about this package and see how all of the methods work
 at our html vignette.
 
 ```{r vigniette, eval = FALSE}
-browseVignettes("projektROR")
+browseVignettes("logisMod")
 ```
